@@ -30,6 +30,16 @@ function contrastRatio(col1, col2) {
     return (lighter + 0.05) / (darker + 0.05);
 }
 
+function getContrastLimit() {
+    if (document.getElementById('hi-con').checked) {
+        return 4.5;
+    } else if (document.getElementById('lo-con').checked) {
+        return 3;
+    } else {
+        return 0;
+    }
+}
+
 function randomColor() {
     let col = { r: getRandomInt(256), g: getRandomInt(256), b: getRandomInt(256) };
     let rStr = col.r.toString(16).padStart(2, '0').toUpperCase();
@@ -40,7 +50,23 @@ function randomColor() {
 }
 
 function randomColorPair() {
-    return [randomColor(), randomColor()];
+    let limit = getContrastLimit();
+    let col1 = randomColor();
+    let col2 = col1;
+    let attempts = 0;
+
+    while (contrastRatio(col1, col2) < limit) {
+        if (++attempts > 10) {
+            console.log('rewriting the base color');
+            attempts = 0;
+            col1 = randomColor();
+        } else {
+            col2 = randomColor();
+        }
+    }
+
+    console.log(`saving after ${attempts} attempts`);
+    return [col1, col2];
 }
 
 document.getElementById('rando').addEventListener('click', function(ev) {

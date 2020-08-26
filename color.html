@@ -19,6 +19,20 @@
                 Contrast ratio: <span id="ratio">21</span>
             </div>
             <button type="button" id="rando">Change colors</button>
+            <div>
+                <div>
+                    <input type="radio" id="hi-con" name="contrast" value="hi" />
+                    <label for="hi-con">Require high contrast (ratio &gt; 4.5)</label>
+                </div>
+                <div>
+                    <input type="radio" id="lo-con" name="contrast" value="lo" checked />
+                    <label for="lo-con">Allow low contrast (ratio &gt; 3)</label>
+                </div>
+                <div>
+                    <input type="radio" id="any-con" name="contrast" value="any" />
+                    <label for="any-con">Allow any contrast</label>
+                </div>
+            </div>
         </div>
         <script src="color.js"></script>
     </body>

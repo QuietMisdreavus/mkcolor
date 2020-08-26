@@ -2,7 +2,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function luminance(r, g, b) {
+function luminance(col) {
     function lumVal(v) {
         let frac = v / 255;
 
@@ -13,16 +13,16 @@ function luminance(r, g, b) {
         }
     }
 
-    let rVal = lumVal(r);
-    let gVal = lumVal(g);
-    let bVal = lumVal(b);
+    let rVal = lumVal(col.r);
+    let gVal = lumVal(col.g);
+    let bVal = lumVal(col.b);
 
     return (rVal * 0.2126) + (gVal * 0.7152) + (bVal * 0.0722);
 }
 
-function contrastRatio(r1, g1, b1, r2, g2, b2) {
-    let lum1 = luminance(r1, g1, b1);
-    let lum2 = luminance(r2, g2, b2);
+function contrastRatio(col1, col2) {
+    let lum1 = luminance(col1);
+    let lum2 = luminance(col2);
 
     let darker = Math.min(lum1, lum2);
     let lighter = Math.max(lum1, lum2);
@@ -31,25 +31,27 @@ function contrastRatio(r1, g1, b1, r2, g2, b2) {
 }
 
 function randomColor() {
-    let r = getRandomInt(256);
-    let g = getRandomInt(256);
-    let b = getRandomInt(256);
-    let rStr = r.toString(16).padStart(2, '0').toUpperCase();
-    let gStr = g.toString(16).padStart(2, '0').toUpperCase();
-    let bStr = b.toString(16).padStart(2, '0').toUpperCase();
-    return [`#${rStr}${gStr}${bStr}`, r, g, b];
+    let col = { r: getRandomInt(256), g: getRandomInt(256), b: getRandomInt(256) };
+    let rStr = col.r.toString(16).padStart(2, '0').toUpperCase();
+    let gStr = col.g.toString(16).padStart(2, '0').toUpperCase();
+    let bStr = col.b.toString(16).padStart(2, '0').toUpperCase();
+    col.text = `#${rStr}${gStr}${bStr}`;
+    return col;
+}
+
+function randomColorPair() {
+    return [randomColor(), randomColor()];
 }
 
 document.getElementById('rando').addEventListener('click', function(ev) {
-    let col1 = randomColor();
-    let col2 = randomColor();
+    let cols = randomColorPair();
 
-    document.documentElement.style.setProperty('--color-1', col1[0]);
-    document.documentElement.style.setProperty('--color-2', col2[0]);
+    document.documentElement.style.setProperty('--color-1', cols[0].text);
+    document.documentElement.style.setProperty('--color-2', cols[1].text);
 
-    let contrast = contrastRatio(col1[1], col1[2], col1[3], col2[1], col2[2], col2[3]);
+    let contrast = contrastRatio(cols[0], cols[1]);
     document.getElementById('ratio').innerHTML = contrast.toFixed(2);
 
-    document.getElementById('col1').innerHTML = col1[0];
-    document.getElementById('col2').innerHTML = col2[0];
+    document.getElementById('col1').innerHTML = cols[0].text;
+    document.getElementById('col2').innerHTML = cols[1].text;
 });

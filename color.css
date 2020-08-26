@@ -1,0 +1,34 @@
+:root {
+    --color-1: #000;
+    --color-2: #fff;
+}
+
+body {
+    background-color: #eee;
+    font-family: sans-serif;
+}
+
+#wrapper {
+    max-width: 20rem;
+    margin: 0 auto;
+}
+
+#wrapper > div {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+#rando {
+    margin: 0 auto;
+    display: block;
+}
+
+#reg {
+    background-color: var(--color-1);
+    color: var(--color-2);
+}
+
+#inv {
+    background-color: var(--color-2);
+    color: var(--color-1);
+}

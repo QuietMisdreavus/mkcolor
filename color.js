@@ -31,7 +31,9 @@ function contrastRatio(col1, col2) {
 }
 
 function getContrastLimit() {
-    if (document.getElementById('hi-con').checked) {
+    if (document.getElementById('v-hi-con').checked) {
+        return 7;
+    } else if (document.getElementById('hi-con').checked) {
         return 4.5;
     } else if (document.getElementById('lo-con').checked) {
         return 3;

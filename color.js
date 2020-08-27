@@ -97,36 +97,47 @@ function randomAnsiColor() {
     return getAnsiColor(idx);
 }
 
-function randomColorPair() {
+function randomColorSet() {
     let limit = getContrastLimit();
     let useAnsi = document.getElementById('use-ansi').checked === true;
-    let col1 = randomColor(useAnsi);
-    let col2 = randomColor(useAnsi);
+    let colors = {};
+    colors.bg = randomColor(useAnsi);
+    colors.fg = randomColor(useAnsi);
     let attempts = 0;
 
-    while (contrastRatio(col1, col2) < limit) {
+    while (contrastRatio(colors.bg, colors.fg) < limit) {
         if (++attempts > 10) {
-            console.log('rewriting the base color');
+            // if it takes too long to find a color with enough contrast, start over with a new
+            // background
             attempts = 0;
-            col1 = randomColor(useAnsi);
+            colors.bg = randomColor(useAnsi);
         } else {
-            col2 = randomColor(useAnsi);
+            colors.fg = randomColor(useAnsi);
         }
     }
 
-    console.log(`saving after ${attempts} attempts`);
-    return [col1, col2];
+    colors.baseContrast = contrastRatio(colors.bg, colors.fg);
+    colors.comment = randomColor(useAnsi);
+
+    while (contrastRatio(colors.bg, colors.comment) < limit
+        || contrastRatio(colors.bg, colors.comment) > colors.baseContrast) {
+        colors.comment = randomColor(useAnsi);
+    }
+
+    return colors;
 }
 
 document.getElementById('rando').addEventListener('click', function(ev) {
-    let cols = randomColorPair();
+    let cols = randomColorSet();
 
-    document.documentElement.style.setProperty('--color-1', cols[0].hex);
-    document.documentElement.style.setProperty('--color-2', cols[1].hex);
+    let cssVars = document.documentElement.style;
+    cssVars.setProperty('--color-bg', cols.bg.hex);
+    cssVars.setProperty('--color-fg', cols.fg.hex);
+    cssVars.setProperty('--color-comment', cols.comment.hex);
 
-    let contrast = contrastRatio(cols[0], cols[1]);
-    document.getElementById('ratio').innerHTML = contrast.toFixed(2);
+    document.getElementById('ratio').innerHTML = cols.baseContrast.toFixed(2);
 
-    document.getElementById('col1').innerHTML = cols[0].text;
-    document.getElementById('col2').innerHTML = cols[1].text;
+    document.getElementById('bg-col').innerHTML = cols.bg.text;
+    document.getElementById('fg-col').innerHTML = cols.fg.text;
+    document.getElementById('comment-col').innerHTML = cols.comment.text;
 });

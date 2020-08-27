@@ -1,6 +1,7 @@
 :root {
-    --color-1: #000;
-    --color-2: #fff;
+    --color-bg: #000;
+    --color-fg: #fff;
+    --color-comment: #fff;
 }
 
 body {
@@ -9,7 +10,7 @@ body {
 }
 
 #wrapper {
-    max-width: 20rem;
+    max-width: 40rem;
     margin: 0 auto;
 }
 
@@ -18,17 +19,49 @@ body {
     padding: 2rem 0;
 }
 
+#palette {
+    text-align: left;
+}
+
+#palette .block {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+}
+
+#bg-block {
+    background-color: var(--color-bg);
+    color: var(--color-bg);
+}
+
+#fg-block {
+    background-color: var(--color-fg);
+    color: var(--color-fg);
+}
+
+#comment-block {
+    background-color: var(--color-comment);
+    color: var(--color-comment);
+}
+
 #rando {
     margin: 0 auto;
     display: block;
 }
 
-#reg {
-    background-color: var(--color-1);
-    color: var(--color-2);
+#code {
+    font-family: monospace;
+    padding: 1rem;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
 }
 
-#inv {
-    background-color: var(--color-2);
-    color: var(--color-1);
+/* TODO markers are rendered in reverse-video (for now) */
+#code .todo {
+    background-color: var(--color-comment);
+    color: var(--color-bg);
+}
+
+#code .comment {
+    color: var(--color-comment);
 }

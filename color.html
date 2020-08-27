@@ -7,13 +7,36 @@
     </head>
     <body>
         <div id="wrapper">
-            <div id="reg">
-                <div id="col1">#000</div>
-                Here is some text
-            </div>
-            <div id="inv">
-                <div id="col2">#FFF</div>
-                Here is some text
+            <pre id="code">
+<span class="comment">// Definition modified from the Rust standard library</span>
+<span class="comment">// <span class="todo">XXX</span>: This is missing the stability/internal attributes</span>
+<span class="special">/// The `Option` type.</span>
+<span class="special">///</span>
+<span class="special">/// ```</span>
+<span class="special">/// </span><span class="statement">let</span> my_opt = <span class="constant">Some</span>(<span class="constant">5</span>);
+<span class="special">/// ```</span>
+<span class="preproc">#[derive(<span class="type">Copy</span>, <span class="type">PartialEq</span>, <span class="type">PartialOrd</span>, <span class="type">Eq</span>, <span class="type">Ord</span>, <span class="type">Debug</span>, <span class="type">Hash</span>)]</span>
+<span class="statement">pub</span> <span class="statement">enum</span> <span
+class="identifier">Option</span>&lt;T&gt; {
+    <span class="special">/// No value</span>
+    <span class="identifier">None</span>,
+    /// Some value `T`
+    <span class="identifier">Some</span>(T),
+}
+            </pre>
+            <div id="palette">
+                <div>
+                    <span class="block" id="bg-block"> </span>
+                    Background: <span id="bg-col">#000</span>
+                </div>
+                <div>
+                    <span class="block" id="fg-block"> </span>
+                    Foreground: <span id="fg-col">#FFF</span>
+                </div>
+                <div>
+                    <span class="block" id="comment-block"> </span>
+                    Comments: <span id="comment-col">#FFF</span>
+                </div>
             </div>
             <div>
                 Contrast ratio: <span id="ratio">21</span>

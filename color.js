@@ -42,18 +42,65 @@ function getContrastLimit() {
     }
 }
 
-function randomColor() {
-    let col = { r: getRandomInt(256), g: getRandomInt(256), b: getRandomInt(256) };
+function newColor(r, g, b, idx) {
+    let col = { r: r, g: g, b: b };
     let rStr = col.r.toString(16).padStart(2, '0').toUpperCase();
     let gStr = col.g.toString(16).padStart(2, '0').toUpperCase();
     let bStr = col.b.toString(16).padStart(2, '0').toUpperCase();
+    col.hex = `#${rStr}${gStr}${bStr}`;
     col.text = `#${rStr}${gStr}${bStr}`;
+
+    if (idx) {
+        col.idx = idx;
+        col.text += ` (ANSI ${idx})`;
+    }
+
     return col;
+}
+
+function randomColor(useAnsi) {
+    if (useAnsi) {
+        return randomAnsiColor();
+    } else {
+        return randomRgbColor();
+    }
+}
+
+function randomRgbColor() {
+    return newColor(getRandomInt(256), getRandomInt(256), getRandomInt(256));
+}
+
+function getAnsiColor(ansi) {
+    if (ansi < 16 || ansi > 255) return undefined;
+
+    if (ansi > 231) {
+        const s = (ansi - 232) * 10 + 8
+        return newColor(s, s, s, ansi);
+    }
+
+    const n = ansi - 16
+    let b = n % 6
+    let g = (n - b) / 6 % 6
+    let r = (n - b - g * 6) / 36 % 6
+    b = b ? b * 40 + 55 : 0
+    r = r ? r * 40 + 55 : 0
+    g = g ? g * 40 + 55 : 0
+
+    return newColor(r, g, b, ansi);
+}
+
+function randomAnsiColor() {
+    let idx = 0;
+
+    while (idx < 16) { idx = getRandomInt(256); }
+
+    return getAnsiColor(idx);
 }
 
 function randomColorPair() {
     let limit = getContrastLimit();
-    let col1 = randomColor();
+    let useAnsi = document.getElementById('use-ansi').checked === true;
+    let col1 = randomColor(useAnsi);
     let col2 = col1;
     let attempts = 0;
 
@@ -61,9 +108,9 @@ function randomColorPair() {
         if (++attempts > 10) {
             console.log('rewriting the base color');
             attempts = 0;
-            col1 = randomColor();
+            col1 = randomColor(useAnsi);
         } else {
-            col2 = randomColor();
+            col2 = randomColor(useAnsi);
         }
     }
 
@@ -74,8 +121,8 @@ function randomColorPair() {
 document.getElementById('rando').addEventListener('click', function(ev) {
     let cols = randomColorPair();
 
-    document.documentElement.style.setProperty('--color-1', cols[0].text);
-    document.documentElement.style.setProperty('--color-2', cols[1].text);
+    document.documentElement.style.setProperty('--color-1', cols[0].hex);
+    document.documentElement.style.setProperty('--color-2', cols[1].hex);
 
     let contrast = contrastRatio(cols[0], cols[1]);
     document.getElementById('ratio').innerHTML = contrast.toFixed(2);

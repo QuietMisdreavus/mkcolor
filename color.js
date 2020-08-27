@@ -97,6 +97,16 @@ function randomAnsiColor() {
     return getAnsiColor(idx);
 }
 
+var colorNames = ['identifier'];
+
+function addColor(colors, name, useAnsi, limit) {
+    colors[name] = randomColor(useAnsi);
+
+    while (contrastRatio(colors.bg, colors[name]) < limit) {
+        colors[name] = randomColor(useAnsi);
+    }
+}
+
 function randomColorSet() {
     let limit = getContrastLimit();
     let useAnsi = document.getElementById('use-ansi').checked === true;
@@ -124,6 +134,10 @@ function randomColorSet() {
         colors.comment = randomColor(useAnsi);
     }
 
+    for (let name of colorNames) {
+        addColor(colors, name, useAnsi, limit);
+    }
+
     return colors;
 }
 
@@ -140,4 +154,9 @@ document.getElementById('rando').addEventListener('click', function(ev) {
     document.getElementById('bg-col').innerHTML = cols.bg.text;
     document.getElementById('fg-col').innerHTML = cols.fg.text;
     document.getElementById('comment-col').innerHTML = cols.comment.text;
+
+    for (let name of colorNames) {
+        cssVars.setProperty(`--color-${name}`, cols[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = cols[name].text;
+    }
 });

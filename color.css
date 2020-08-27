@@ -2,6 +2,7 @@
     --color-bg: #000;
     --color-fg: #fff;
     --color-comment: #fff;
+    --color-identifier: #fff;
 }
 
 body {
@@ -44,6 +45,11 @@ body {
     color: var(--color-comment);
 }
 
+#identifier-block {
+    background-color: var(--color-identifier);
+    color: var(--color-identifier);
+}
+
 #rando {
     margin: 0 auto;
     display: block;
@@ -64,4 +70,8 @@ body {
 
 #code .comment {
     color: var(--color-comment);
+}
+
+#code .identifier {
+    color: var(--color-identifier);
 }

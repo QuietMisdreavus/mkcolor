@@ -101,7 +101,7 @@ function randomColorPair() {
     let limit = getContrastLimit();
     let useAnsi = document.getElementById('use-ansi').checked === true;
     let col1 = randomColor(useAnsi);
-    let col2 = col1;
+    let col2 = randomColor(useAnsi);
     let attempts = 0;
 
     while (contrastRatio(col1, col2) < limit) {

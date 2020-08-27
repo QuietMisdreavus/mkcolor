@@ -3,6 +3,11 @@
     --color-fg: #fff;
     --color-comment: #fff;
     --color-identifier: #fff;
+    --color-constant: #fff;
+    --color-type: #fff;
+    --color-statement: #fff;
+    --color-preproc: #fff;
+    --color-special: #fff;
 }
 
 body {
@@ -50,6 +55,31 @@ body {
     color: var(--color-identifier);
 }
 
+#constant-block {
+    background-color: var(--color-constant);
+    color: var(--color-constant);
+}
+
+#type-block {
+    background-color: var(--color-type);
+    color: var(--color-type);
+}
+
+#statement-block {
+    background-color: var(--color-statement);
+    color: var(--color-statement);
+}
+
+#preproc-block {
+    background-color: var(--color-preproc);
+    color: var(--color-preproc);
+}
+
+#special-block {
+    background-color: var(--color-special);
+    color: var(--color-special);
+}
+
 #rando {
     margin: 0 auto;
     display: block;
@@ -74,4 +104,24 @@ body {
 
 #code .identifier {
     color: var(--color-identifier);
+}
+
+#code .constant {
+    color: var(--color-constant);
+}
+
+#code .type {
+    color: var(--color-type);
+}
+
+#code .statement {
+    color: var(--color-statement);
+}
+
+#code .preproc {
+    color: var(--color-preproc);
+}
+
+#code .special {
+    color: var(--color-special);
 }

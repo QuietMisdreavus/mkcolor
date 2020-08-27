@@ -97,7 +97,7 @@ function randomAnsiColor() {
     return getAnsiColor(idx);
 }
 
-var colorNames = ['identifier'];
+var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special'];
 
 function addColor(colors, name, useAnsi, limit) {
     colors[name] = randomColor(useAnsi);

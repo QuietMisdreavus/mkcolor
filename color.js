@@ -42,6 +42,16 @@ function getContrastLimit() {
     }
 }
 
+function getLineNrCheck() {
+    if (document.getElementById('linenr-lo').checked) {
+        return function(cr) { return cr < 3; }
+    } else if (document.getElementById('linenr-hi').checked) {
+        return function(cr) { return cr > 4.5; }
+    } else {
+        return function(cr) { return true; }
+    }
+}
+
 function newColor(r, g, b, idx) {
     let col = { r: r, g: g, b: b };
     let rStr = col.r.toString(16).padStart(2, '0').toUpperCase();
@@ -109,6 +119,7 @@ function addColor(colors, name, useAnsi, limit) {
 
 function randomColorSet() {
     let limit = getContrastLimit();
+    let lineNrValid = getLineNrCheck();
     let useAnsi = document.getElementById('use-ansi').checked === true;
     let colors = {};
     colors.bg = randomColor(useAnsi);
@@ -144,8 +155,7 @@ function randomColorSet() {
     attempts = 0;
 
     while (!goodLineNr) {
-        // TODO: customize the line number column contrast
-        if (contrastRatio(colors.bg, colors.lineNrBG) > 3) {
+        if (!lineNrValid(contrastRatio(colors.bg, colors.lineNrBG))) {
             colors.lineNrBG = randomColor(useAnsi);
         } else if (contrastRatio(colors.lineNrBG, colors.lineNrFG) < limit) {
             if (++attempts > 10) {

@@ -27,7 +27,7 @@ body {
     padding: 2rem 0;
 }
 
-.form-block {
+.form-block:not(:first-child) {
     padding-top: 1rem;
 }
 

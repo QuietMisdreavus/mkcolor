@@ -27,6 +27,10 @@ body {
     padding: 2rem 0;
 }
 
+.form-block {
+    padding-top: 1rem;
+}
+
 #palette .block {
     display: inline-block;
     width: 1rem;

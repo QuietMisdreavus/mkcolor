@@ -27,10 +27,6 @@ body {
     padding: 2rem 0;
 }
 
-#palette {
-    text-align: left;
-}
-
 #palette .block {
     display: inline-block;
     width: 1rem;

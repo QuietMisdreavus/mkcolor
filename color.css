@@ -24,7 +24,10 @@ body {
 
 #wrapper > div {
     text-align: center;
-    padding: 2rem 0;
+}
+
+#wrapper > *:not(:first-child) {
+    margin-top: 2rem;
 }
 
 .form-block:not(:first-child) {

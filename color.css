@@ -8,6 +8,8 @@
     --color-statement: #fff;
     --color-preproc: #fff;
     --color-special: #fff;
+    --color-linenr-bg: #000;
+    --color-linenr-fg: #fff;
 }
 
 body {
@@ -80,6 +82,16 @@ body {
     color: var(--color-special);
 }
 
+#linenr-bg-block {
+    background-color: var(--color-linenr-bg);
+    color: var(--color-linenr-bg);
+}
+
+#linenr-fg-block {
+    background-color: var(--color-linenr-fg);
+    color: var(--color-linenr-fg);
+}
+
 #rando {
     margin: 0 auto;
     display: block;
@@ -124,4 +136,9 @@ body {
 
 #code .special {
     color: var(--color-special);
+}
+
+#code .linenr {
+    background-color: var(--color-linenr-bg);
+    color: var(--color-linenr-fg);
 }

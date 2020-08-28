@@ -138,6 +138,27 @@ function randomColorSet() {
         addColor(colors, name, useAnsi, limit);
     }
 
+    colors.lineNrBG = randomColor(useAnsi);
+    colors.lineNrFG = randomColor(useAnsi);
+    let goodLineNr = false;
+    attempts = 0;
+
+    while (!goodLineNr) {
+        // TODO: customize the line number column contrast
+        if (contrastRatio(colors.bg, colors.lineNrBG) > 3) {
+            colors.lineNrBG = randomColor(useAnsi);
+        } else if (contrastRatio(colors.lineNrBG, colors.lineNrFG) < limit) {
+            if (++attempts > 10) {
+                attempts = 0;
+                colors.lineNrBG = randomColor(useAnsi);
+            } else {
+                colors.lineNrFG = randomColor(useAnsi);
+            }
+        } else {
+            goodLineNr = true;
+        }
+    }
+
     return colors;
 }
 
@@ -159,4 +180,9 @@ document.getElementById('rando').addEventListener('click', function(ev) {
         cssVars.setProperty(`--color-${name}`, cols[name].hex);
         document.getElementById(`${name}-col`).innerHTML = cols[name].text;
     }
+
+    cssVars.setProperty('--color-linenr-bg', cols.lineNrBG.hex);
+    cssVars.setProperty('--color-linenr-fg', cols.lineNrFG.hex);
+    document.getElementById('linenr-bg-col').innerHTML = cols.lineNrBG.text;
+    document.getElementById('linenr-fg-col').innerHTML = cols.lineNrFG.text;
 });

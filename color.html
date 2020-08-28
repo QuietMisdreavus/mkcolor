@@ -8,21 +8,20 @@
     <body>
         <div id="wrapper">
             <pre id="code">
-<span class="comment">// Definition modified from the Rust standard library</span>
-<span class="comment">// <span class="todo">XXX</span>: This is missing the stability/internal attributes</span>
-<span class="special">/// The `Option` type.</span>
-<span class="special">///</span>
-<span class="special">/// ```</span>
-<span class="special">/// </span><span class="statement">let</span> my_opt = <span class="constant">Some</span>(<span class="constant">5</span>);
-<span class="special">/// ```</span>
-<span class="preproc">#[derive(<span class="type">Copy</span>, <span class="type">PartialEq</span>, <span class="type">PartialOrd</span>, <span class="type">Eq</span>, <span class="type">Ord</span>, <span class="type">Debug</span>, <span class="type">Hash</span>)]</span>
-<span class="statement">pub</span> <span class="statement">enum</span> <span
-class="identifier">Option</span>&lt;T&gt; {
-    <span class="special">/// No value</span>
-    <span class="identifier">None</span>,
-    <span class="special">/// Some value `T`</span>
-    <span class="identifier">Some</span>(T),
-}</pre>
+<span class="linenr">  1 </span><span class="comment">// Definition modified from the Rust standard library</span>
+<span class="linenr">  2 </span><span class="comment">// <span class="todo">XXX</span>: This is missing the stability/internal attributes</span>
+<span class="linenr">  3 </span><span class="special">/// The `Option` type.</span>
+<span class="linenr">  4 </span><span class="special">///</span>
+<span class="linenr">  5 </span><span class="special">/// ```</span>
+<span class="linenr">  6 </span><span class="special">/// </span><span class="statement">let</span> my_opt = <span class="constant">Some</span>(<span class="constant">5</span>);
+<span class="linenr">  7 </span><span class="special">/// ```</span>
+<span class="linenr">  8 </span><span class="preproc">#[derive(<span class="type">Copy</span>, <span class="type">PartialEq</span>, <span class="type">PartialOrd</span>, <span class="type">Eq</span>, <span class="type">Ord</span>, <span class="type">Debug</span>, <span class="type">Hash</span>)]</span>
+<span class="linenr">  9 </span><span class="statement">pub</span> <span class="statement">enum</span> <span class="identifier">Option</span>&lt;T&gt; {
+<span class="linenr"> 10 </span>    <span class="special">/// No value</span>
+<span class="linenr"> 11 </span>    <span class="identifier">None</span>,
+<span class="linenr"> 12 </span>    <span class="special">/// Some value `T`</span>
+<span class="linenr"> 13 </span>    <span class="identifier">Some</span>(T),
+<span class="linenr"> 14 </span>}</pre>
             <div id="palette">
                 <div>
                     <span class="block" id="bg-block"> </span>
@@ -59,6 +58,14 @@ class="identifier">Option</span>&lt;T&gt; {
                 <div>
                     <span class="block" id="special-block"> </span>
                     Special tokens: <span id="special-col">#FFF</span>
+                </div>
+                <div>
+                    <span class="block" id="linenr-bg-block"> </span>
+                    Line number background: <span id="linenr-bg-col">#000</span>
+                </div>
+                <div>
+                    <span class="block" id="linenr-fg-block"> </span>
+                    Line number text: <span id="linenr-fg-col">#FFF</span>
                 </div>
             </div>
             <div>

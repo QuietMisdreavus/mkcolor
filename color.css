@@ -17,16 +17,45 @@ body {
     font-family: sans-serif;
 }
 
+input.nav-radio {
+    display: none;
+}
+
+.tab {
+    cursor: pointer;
+    display: inline-block;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    padding: 10px 20px;
+    margin: 0px 2px;
+}
+
+#nav-rust:checked ~ #tabs #label-rust,
+#nav-js:checked ~ #tabs #label-js {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-style: italic;
+}
+
+#blocks pre {
+    display: none;
+}
+
+#nav-rust:checked ~ #blocks #block-rust,
+#nav-js:checked ~ #blocks #block-js {
+    display: block;
+}
+
 #wrapper {
     width: max-content;
     margin: 0 auto;
 }
 
-#wrapper > div {
+#wrapper > div:not(#blocks):not(#tabs) {
     text-align: center;
 }
 
-#wrapper > *:not(:first-child) {
+#wrapper > *:not(:first-child):not(#blocks) {
     margin-top: 2rem;
 }
 
@@ -100,48 +129,49 @@ body {
     display: block;
 }
 
-#code {
+#blocks pre {
     font-family: monospace;
     padding: 1rem;
+    margin-top: 0;
     background-color: var(--color-bg);
     color: var(--color-fg);
 }
 
 /* TODO markers are rendered in reverse-video (for now) */
-#code .todo {
+#blocks pre .todo {
     background-color: var(--color-comment);
     color: var(--color-bg);
 }
 
-#code .comment {
+#blocks pre .comment {
     color: var(--color-comment);
 }
 
-#code .identifier {
+#blocks pre .identifier {
     color: var(--color-identifier);
 }
 
-#code .constant {
+#blocks pre .constant {
     color: var(--color-constant);
 }
 
-#code .type {
+#blocks pre .type {
     color: var(--color-type);
 }
 
-#code .statement {
+#blocks pre .statement {
     color: var(--color-statement);
 }
 
-#code .preproc {
+#blocks pre .preproc {
     color: var(--color-preproc);
 }
 
-#code .special {
+#blocks pre .special {
     color: var(--color-special);
 }
 
-#code .linenr {
+#blocks pre .linenr {
     background-color: var(--color-linenr-bg);
     color: var(--color-linenr-fg);
 }

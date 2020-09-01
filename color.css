@@ -51,12 +51,28 @@ input.nav-radio {
     margin: 0 auto;
 }
 
-#wrapper > div:not(#blocks):not(#tabs) {
-    text-align: center;
+#wrapper > *,
+#details > *:not(:first-child):not(#blocks),
+#form > *:not(:first-child) {
+    margin-top: 2rem;
 }
 
-#wrapper > *:not(:first-child):not(#blocks) {
-    margin-top: 2rem;
+#colors {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 1rem;
+}
+
+#settings {
+    columns: 2;
+}
+
+.form-block {
+    break-inside: avoid;
+}
+
+#details {
+    margin-bottom: 1rem;
 }
 
 .form-block:not(:first-child) {
@@ -125,7 +141,7 @@ input.nav-radio {
 }
 
 #rando {
-    margin: 0 auto;
+    margin: 2em auto 0;
     display: block;
 }
 

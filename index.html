@@ -8,14 +8,16 @@
     <body>
         <div id="wrapper">
             <h1>mkcolor</h1>
-            <input type="radio" name="nav-tab" class="nav-radio" id="nav-rust" checked />
-            <input type="radio" name="nav-tab" class="nav-radio" id="nav-js" checked />
-            <div id="tabs">
-                <label for="nav-rust" id="label-rust" class="tab">Rust</label>
-                <label for="nav-js" id="label-js" class="tab">JavaScript</label>
-            </div>
-            <div id="blocks">
-                <pre id="block-rust">
+            <div id="colors">
+                <div id="demo">
+                    <input type="radio" name="nav-tab" class="nav-radio" id="nav-rust" checked />
+                    <input type="radio" name="nav-tab" class="nav-radio" id="nav-js" checked />
+                    <div id="tabs">
+                        <label for="nav-rust" id="label-rust" class="tab">Rust</label>
+                        <label for="nav-js" id="label-js" class="tab">JavaScript</label>
+                    </div>
+                    <div id="blocks">
+                        <pre id="block-rust">
 <span class="linenr">  1 </span><span class="comment">// Definition modified from the Rust standard library</span>
 <span class="linenr">  2 </span><span class="comment">// <span class="todo">XXX</span>: This is missing the stability/internal attributes</span>
 <span class="linenr">  3 </span><span class="special">/// The `Option` type.</span>
@@ -30,7 +32,7 @@
 <span class="linenr"> 12 </span>    <span class="special">/// Some value `T`</span>
 <span class="linenr"> 13 </span>    <span class="identifier">Some</span>(T),
 <span class="linenr"> 14 </span>}</pre>
-                <pre id="block-js">
+                        <pre id="block-js">
 <span class="linenr">  1 </span><span class="statement">function</span> newColor(r, g, b, idx) <span class="statement">{</span>
 <span class="linenr">  2 </span>    <span class="identifier">let</span> col = <span class="statement">{</span> r: r, g: g, b: b <span class="statement">}</span>;
 <span class="linenr">  3 </span>    <span class="identifier">let</span> rStr = col.r.toString(16).padStart(2, <span class="constant">'0'</span>).toUpperCase();
@@ -46,58 +48,62 @@
 <span class="linenr"> 13 </span>
 <span class="linenr"> 14 </span>    <span class="statement">return</span> col;
 <span class="linenr"> 15 </span>}</pre>
-            </div>
-            <div id="palette">
-                <div>
-                    <span class="block" id="bg-block"> </span>
-                    Background: <span id="bg-col">#000</span>
+                    </div>
                 </div>
-                <div>
-                    <span class="block" id="fg-block"> </span>
-                    Foreground: <span id="fg-col">#FFF</span>
+                <div id="details">
+                    <div id="palette">
+                        <div>
+                            <span class="block" id="bg-block"> </span>
+                            Background: <span id="bg-col">#000</span>
+                        </div>
+                        <div>
+                            <span class="block" id="fg-block"> </span>
+                            Foreground: <span id="fg-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="comment-block"> </span>
+                            Comments: <span id="comment-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="identifier-block"> </span>
+                            Identifiers: <span id="identifier-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="constant-block"> </span>
+                            Literals: <span id="constant-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="type-block"> </span>
+                            Type names: <span id="type-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="statement-block"> </span>
+                            Keywords: <span id="statement-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="preproc-block"> </span>
+                            Preprocessor: <span id="preproc-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="special-block"> </span>
+                            Special tokens: <span id="special-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="linenr-bg-block"> </span>
+                            Line number background: <span id="linenr-bg-col">#000</span>
+                        </div>
+                        <div>
+                            <span class="block" id="linenr-fg-block"> </span>
+                            Line number text: <span id="linenr-fg-col">#FFF</span>
+                        </div>
+                    </div>
+                    <div id="ratio-wrap">
+                        Contrast ratio: <span id="ratio">21</span>
+                    </div>
                 </div>
-                <div>
-                    <span class="block" id="comment-block"> </span>
-                    Comments: <span id="comment-col">#FFF</span>
-                </div>
-                <div>
-                    <span class="block" id="identifier-block"> </span>
-                    Identifiers: <span id="identifier-col">#FFF</span>
-                </div>
-                <div>
-                    <span class="block" id="constant-block"> </span>
-                    Literals: <span id="constant-col">#FFF</span>
-                </div>
-                <div>
-                    <span class="block" id="type-block"> </span>
-                    Type names: <span id="type-col">#FFF</span>
-                </div>
-                <div>
-                    <span class="block" id="statement-block"> </span>
-                    Keywords: <span id="statement-col">#FFF</span>
-                </div>
-                <div>
-                    <span class="block" id="preproc-block"> </span>
-                    Preprocessor: <span id="preproc-col">#FFF</span>
-                </div>
-                <div>
-                    <span class="block" id="special-block"> </span>
-                    Special tokens: <span id="special-col">#FFF</span>
-                </div>
-                <div>
-                    <span class="block" id="linenr-bg-block"> </span>
-                    Line number background: <span id="linenr-bg-col">#000</span>
-                </div>
-                <div>
-                    <span class="block" id="linenr-fg-block"> </span>
-                    Line number text: <span id="linenr-fg-col">#FFF</span>
-                </div>
-            </div>
-            <div>
-                Contrast ratio: <span id="ratio">21</span>
             </div>
             <button type="button" id="rando">Change colors</button>
-            <div>
+            <div id="settings">
                 <div class="form-block">
                     <input type="checkbox" id="use-ansi" name="use-ansi" />
                     <label for="use-ansi">Use ANSI terminal colors</label>

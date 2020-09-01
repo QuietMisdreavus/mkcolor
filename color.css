@@ -140,11 +140,6 @@ input.nav-radio {
     color: var(--color-linenr-fg);
 }
 
-#rando {
-    margin: 2em auto 0;
-    display: block;
-}
-
 #blocks pre {
     font-family: monospace;
     padding: 1rem;

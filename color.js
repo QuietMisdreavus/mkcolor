@@ -206,6 +206,11 @@ function randomColorSet() {
         colors.cursor = randomColor(useAnsi);
     }
 
+    colors.visual = randomColor(useAnsi);
+    while (contrastRatio(colors.bg, colors.visual) > 2) {
+        colors.visual = randomColor(useAnsi);
+    }
+
     return colors;
 }
 

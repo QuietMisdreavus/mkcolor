@@ -58,7 +58,7 @@ input.nav-radio {
 }
 
 #wrapper > *,
-#details > *:not(:first-child):not(#blocks),
+.top-col > *:not(:first-child):not(#blocks),
 #form > *:not(:first-child) {
     margin-top: 2rem;
 }
@@ -77,15 +77,11 @@ input.nav-radio {
     break-inside: avoid;
 }
 
-#details {
-    margin-bottom: 1rem;
-}
-
 .form-block:not(:first-child) {
     padding-top: 1rem;
 }
 
-#palette .block {
+.palette .block {
     display: inline-block;
     width: 1rem;
     height: 1rem;

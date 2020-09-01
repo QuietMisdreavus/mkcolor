@@ -141,6 +141,14 @@ function addBgColor(colors, name, useAnsi, limit) {
 
     while (tryAgain) {
         colors[name] = randomColor(useAnsi);
+
+        // TODO: is this threshold too low? too high? if i set it higher i sometimes end up in a
+        // deadlock where *no* color satisfies both "different enough from bg" and "satisfies CR
+        // limit for everything else"
+        if (contrastRatio(colors[name], colors.bg) < 1.1) {
+            continue;
+        }
+
         tryAgain = false;
         for (let fg of colorNames) {
             if (contrastRatio(colors[name], colors[fg]) < limit) {

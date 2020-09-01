@@ -1,7 +1,9 @@
+// return a random integer from 0 to the given number (inclusive of 0, exclusive of the max)
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+// calculate the Relative Luminance of the given RGB color
 function luminance(col) {
     function lumVal(v) {
         let frac = v / 255;
@@ -20,6 +22,7 @@ function luminance(col) {
     return (rVal * 0.2126) + (gVal * 0.7152) + (bVal * 0.0722);
 }
 
+// calculate the Contrast Ratio of the given RGB colors
 function contrastRatio(col1, col2) {
     let lum1 = luminance(col1);
     let lum2 = luminance(col2);
@@ -30,6 +33,7 @@ function contrastRatio(col1, col2) {
     return (lighter + 0.05) / (darker + 0.05);
 }
 
+// returns the minimum contrast ratio requested by the user
 function getContrastLimit() {
     if (document.getElementById('v-hi-con').checked) {
         return 7;
@@ -42,6 +46,8 @@ function getContrastLimit() {
     }
 }
 
+// returns a function which evaluates a contrast ratio for the "line number background contrast"
+// requested by the user
 function getLineNrCheck() {
     if (document.getElementById('linenr-lo').checked) {
         return function(cr) { return cr < 3; }
@@ -52,6 +58,7 @@ function getLineNrCheck() {
     }
 }
 
+// returns a new RGB color using the given RGB values, and, if present, the given ANSI index
 function newColor(r, g, b, idx) {
     let col = { r: r, g: g, b: b };
     let rStr = col.r.toString(16).padStart(2, '0').toUpperCase();
@@ -68,6 +75,8 @@ function newColor(r, g, b, idx) {
     return col;
 }
 
+// returns a random RGB color value, based on whether the user has requested to use ANSI terminal
+// colors or not
 function randomColor(useAnsi) {
     if (useAnsi) {
         return randomAnsiColor();
@@ -76,10 +85,12 @@ function randomColor(useAnsi) {
     }
 }
 
+// generates a random 24-bit RGB color
 function randomRgbColor() {
     return newColor(getRandomInt(256), getRandomInt(256), getRandomInt(256));
 }
 
+// generates an RGB color object from the given ANSI color index
 function getAnsiColor(ansi) {
     if (ansi < 16 || ansi > 255) return undefined;
 
@@ -99,6 +110,7 @@ function getAnsiColor(ansi) {
     return newColor(r, g, b, ansi);
 }
 
+// generates a random color from the palette of 256-color ANSI terminal colors
 function randomAnsiColor() {
     let idx = 0;
 
@@ -107,8 +119,11 @@ function randomAnsiColor() {
     return getAnsiColor(idx);
 }
 
+// the color classes that can be generated only by comparing their contrast ratio against the
+// background color
 var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special'];
 
+// generates a color and adds it to the given colors object using the given name
 function addColor(colors, name, useAnsi, limit) {
     colors[name] = randomColor(useAnsi);
 
@@ -117,6 +132,8 @@ function addColor(colors, name, useAnsi, limit) {
     }
 }
 
+// reads the settings from the page, then generates a new set of colors and returns the collection
+// object
 function randomColorSet() {
     let limit = getContrastLimit();
     let lineNrValid = getLineNrCheck();
@@ -172,6 +189,8 @@ function randomColorSet() {
     return colors;
 }
 
+// when the user clicks the "change colors" button, generate a new color set and change the CSS
+// variables to display it on the page
 document.getElementById('rando').addEventListener('click', function(ev) {
     let cols = randomColorSet();
 

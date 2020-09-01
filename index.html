@@ -12,10 +12,12 @@
             <div id="colors">
                 <div id="demo">
                     <input type="radio" name="nav-tab" class="nav-radio" id="nav-rust" checked />
-                    <input type="radio" name="nav-tab" class="nav-radio" id="nav-js" checked />
+                    <input type="radio" name="nav-tab" class="nav-radio" id="nav-js" />
+                    <input type="radio" name="nav-tab" class="nav-radio" id="nav-ui" />
                     <div id="tabs">
                         <label for="nav-rust" id="label-rust" class="tab">Rust</label>
                         <label for="nav-js" id="label-js" class="tab">JavaScript</label>
+                        <label for="nav-ui" id="label-ui" class="tab">UI</label>
                     </div>
                     <div id="blocks">
                         <pre id="block-rust">
@@ -51,6 +53,10 @@
 <span class="linenr"> 15 </span>
 <span class="linenr"> 16 </span>    <span class="statement">return</span> col;
 <span class="linenr"> 17 </span>}</pre>
+                        <pre id="block-ui">
+<span class="linenr">  1 </span>              <span class="cursorcolumn"> </span>
+<span class="linenr">  2 </span>              <span class="cursorcolumn"> </span>
+<span class="linenr">  3 </span><span class="cursorline">the cursor is <span class="cursor">h</span>ere</span></pre>
                     </div>
                 </div>
                 <div id="details">
@@ -99,6 +105,18 @@
                             <span class="block" id="linenr-fg-block"> </span>
                             Line number text: <span id="linenr-fg-col">#FFF</span>
                         </div>
+                        <div>
+                            <span class="block" id="cursor-block"> </span>
+                            Cursor: <span id="cursor-col">#FFF</span>
+                        </div>
+                        <div>
+                            <span class="block" id="cursorline-block"> </span>
+                            Cursor line: <span id="cursorline-col">#111</span>
+                        </div>
+                        <div>
+                            <span class="block" id="cursorcolumn-block"> </span>
+                            Cursor column: <span id="cursorcolumn-col">#111</span>
+                        </div>
                     </div>
                     <div id="ratio-wrap">
                         Contrast ratio: <span id="ratio">21</span>
@@ -143,6 +161,12 @@
                     <div>
                         <input type="radio" id="linenr-any" name="linenr-contrast" value="any" />
                         <label for="linenr-any">Allow any contrast</label>
+                    </div>
+                </div>
+                <div class="form-block">
+                    <div>
+                        <input type="checkbox" id="cursorcolumn-same" value="cursorcolumn-same" checked />
+                        <label for="cursorcolumn-same">Cursor column = Cursor line</label>
                     </div>
                 </div>
             </div>

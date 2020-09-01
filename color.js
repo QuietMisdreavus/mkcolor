@@ -186,6 +186,26 @@ function randomColorSet() {
         }
     }
 
+    colors.cursorline = randomColor(useAnsi);
+    // TODO: make this threshold configurable?
+    while (contrastRatio(colors.bg, colors.cursorline) > 2) {
+        colors.cursorline = randomColor(useAnsi);
+    }
+
+    if (document.getElementById('cursorcolumn-same').checked === true) {
+        colors.cursorcolumn = colors.cursorline;
+    } else {
+        colors.cursorcolumn = randomColor(useAnsi);
+        while (contrastRatio(colors.bg, colors.cursorcolumn) > 2) {
+            colors.cursorcolumn = randomColor(useAnsi);
+        }
+    }
+
+    colors.cursor = randomColor(useAnsi);
+    while (contrastRatio(colors.bg, colors.cursor) < limit) {
+        colors.cursor = randomColor(useAnsi);
+    }
+
     return colors;
 }
 
@@ -214,4 +234,11 @@ document.getElementById('rando').addEventListener('click', function(ev) {
     cssVars.setProperty('--color-linenr-fg', cols.lineNrFG.hex);
     document.getElementById('linenr-bg-col').innerHTML = cols.lineNrBG.text;
     document.getElementById('linenr-fg-col').innerHTML = cols.lineNrFG.text;
+
+    cssVars.setProperty('--color-cursor', cols.cursor.hex);
+    cssVars.setProperty('--color-cursorline', cols.cursorline.hex);
+    cssVars.setProperty('--color-cursorcolumn', cols.cursorcolumn.hex);
+    document.getElementById('cursor-col').innerHTML = cols.cursor.text;
+    document.getElementById('cursorline-col').innerHTML = cols.cursorline.text;
+    document.getElementById('cursorcolumn-col').innerHTML = cols.cursorcolumn.text;
 });

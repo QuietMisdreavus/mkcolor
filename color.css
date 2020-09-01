@@ -10,6 +10,9 @@
     --color-special: #fff;
     --color-linenr-bg: #000;
     --color-linenr-fg: #fff;
+    --color-cursorline: #111;
+    --color-cursorcolumn: #111;
+    --color-cursor: #fff;
 }
 
 body {
@@ -31,7 +34,8 @@ input.nav-radio {
 }
 
 #nav-rust:checked ~ #tabs #label-rust,
-#nav-js:checked ~ #tabs #label-js {
+#nav-js:checked ~ #tabs #label-js,
+#nav-ui:checked ~ #tabs #label-ui {
     background-color: var(--color-bg);
     color: var(--color-fg);
     font-style: italic;
@@ -42,7 +46,8 @@ input.nav-radio {
 }
 
 #nav-rust:checked ~ #blocks #block-rust,
-#nav-js:checked ~ #blocks #block-js {
+#nav-js:checked ~ #blocks #block-js,
+#nav-ui:checked ~ #blocks #block-ui {
     display: block;
 }
 
@@ -140,17 +145,37 @@ input.nav-radio {
     color: var(--color-linenr-fg);
 }
 
+#cursor-block {
+    background-color: var(--color-cursor);
+    color: var(--color-cursor);
+}
+
+#cursorline-block {
+    background-color: var(--color-cursorline);
+    color: var(--color-cursorline);
+}
+
+#cursorcolumn-block {
+    background-color: var(--color-cursorcolumn);
+    color: var(--color-cursorcolumn);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
 }
 
+#blocks {
+    padding: 1em;
+    background-color: var(--color-bg);
+}
+
 #blocks pre {
     font-family: monospace;
-    padding: 1rem;
-    margin-top: 0;
+    margin: 0;
     background-color: var(--color-bg);
     color: var(--color-fg);
+    overflow: hidden;
 }
 
 /* TODO markers are rendered in reverse-video (for now) */
@@ -190,4 +215,19 @@ input.nav-radio {
 #blocks pre .linenr {
     background-color: var(--color-linenr-bg);
     color: var(--color-linenr-fg);
+}
+
+#blocks pre .cursorline {
+    background-color: var(--color-cursorline);
+    width: 100%;
+    display: inline-block;
+}
+
+#blocks pre .cursorcolumn {
+    background-color: var(--color-cursorcolumn);
+}
+
+#blocks pre .cursor {
+    background-color: var(--color-cursor);
+    color: var(--color-bg);
 }

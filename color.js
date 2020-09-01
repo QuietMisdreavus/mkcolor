@@ -132,6 +132,25 @@ function addColor(colors, name, useAnsi, limit) {
     }
 }
 
+var bgColorNames = ['cursorline', 'visual'];
+
+// generates a new color and compares it against the colors in `colorNames` to ensure it meets the
+// given contrast ratio threshold
+function addBgColor(colors, name, useAnsi, limit) {
+    let tryAgain = true;
+
+    while (tryAgain) {
+        colors[name] = randomColor(useAnsi);
+        tryAgain = false;
+        for (let fg of colorNames) {
+            if (contrastRatio(colors[name], colors[fg]) < limit) {
+                tryAgain = true;
+                break;
+            }
+        }
+    }
+}
+
 // reads the settings from the page, then generates a new set of colors and returns the collection
 // object
 function randomColorSet() {
@@ -186,29 +205,19 @@ function randomColorSet() {
         }
     }
 
-    colors.cursorline = randomColor(useAnsi);
-    // TODO: make this threshold configurable?
-    while (contrastRatio(colors.bg, colors.cursorline) > 2) {
-        colors.cursorline = randomColor(useAnsi);
-    }
-
-    if (document.getElementById('cursorcolumn-same').checked === true) {
-        colors.cursorcolumn = colors.cursorline;
-    } else {
-        colors.cursorcolumn = randomColor(useAnsi);
-        while (contrastRatio(colors.bg, colors.cursorcolumn) > 2) {
-            colors.cursorcolumn = randomColor(useAnsi);
-        }
-    }
-
     colors.cursor = randomColor(useAnsi);
     while (contrastRatio(colors.bg, colors.cursor) < limit) {
         colors.cursor = randomColor(useAnsi);
     }
 
-    colors.visual = randomColor(useAnsi);
-    while (contrastRatio(colors.bg, colors.visual) > 2) {
-        colors.visual = randomColor(useAnsi);
+    for (let bg of bgColorNames) {
+        addBgColor(colors, bg, useAnsi, limit);
+    }
+
+    if (document.getElementById('cursorcolumn-same').checked === true) {
+        colors.cursorcolumn = colors.cursorline;
+    } else {
+        addBgColor(colors, 'cursorcolumn', useAnsi, limit);
     }
 
     return colors;
@@ -241,9 +250,13 @@ document.getElementById('rando').addEventListener('click', function(ev) {
     document.getElementById('linenr-fg-col').innerHTML = cols.lineNrFG.text;
 
     cssVars.setProperty('--color-cursor', cols.cursor.hex);
-    cssVars.setProperty('--color-cursorline', cols.cursorline.hex);
-    cssVars.setProperty('--color-cursorcolumn', cols.cursorcolumn.hex);
     document.getElementById('cursor-col').innerHTML = cols.cursor.text;
-    document.getElementById('cursorline-col').innerHTML = cols.cursorline.text;
+
+    for (let name of bgColorNames) {
+        cssVars.setProperty(`--color-${name}`, cols[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = cols[name].text;
+    }
+
+    cssVars.setProperty('--color-cursorcolumn', cols.cursorcolumn.hex);
     document.getElementById('cursorcolumn-col').innerHTML = cols.cursorcolumn.text;
 });

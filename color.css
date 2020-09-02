@@ -14,6 +14,8 @@
     --color-cursorcolumn: #111;
     --color-cursor: #fff;
     --color-visual: #222;
+    --color-incsearch: #222;
+    --color-search: #222;
 }
 
 body {
@@ -162,6 +164,16 @@ input.nav-radio {
     color: var(--color-visual);
 }
 
+#incsearch-block {
+    background-color: var(--color-incsearch);
+    color: var(--color-incsearch);
+}
+
+#search-block {
+    background-color: var(--color-search);
+    color: var(--color-search);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -236,4 +248,12 @@ input.nav-radio {
 
 #blocks pre .visual {
     background-color: var(--color-visual);
+}
+
+#blocks pre .incsearch {
+    background-color: var(--color-incsearch);
+}
+
+#blocks pre .search {
+    background-color: var(--color-search);
 }

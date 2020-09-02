@@ -3,6 +3,12 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+class InvalidColorsError extends Error {
+    constructor() {
+        super();
+    }
+}
+
 // calculate the Relative Luminance of the given RGB color
 function luminance(col) {
     function lumVal(v) {
@@ -138,13 +144,15 @@ var bgColorNames = ['cursorline', 'visual'];
 // given contrast ratio threshold
 function addBgColor(colors, name, useAnsi, limit) {
     let tryAgain = true;
+    let attempts = 0;
 
     while (tryAgain) {
+        if (++attempts > 100) {
+            throw new InvalidColorsError;
+        }
+
         colors[name] = randomColor(useAnsi);
 
-        // TODO: is this threshold too low? too high? if i set it higher i sometimes end up in a
-        // deadlock where *no* color satisfies both "different enough from bg" and "satisfies CR
-        // limit for everything else"
         if (contrastRatio(colors[name], colors.bg) < 1.1) {
             continue;
         }
@@ -162,73 +170,82 @@ function addBgColor(colors, name, useAnsi, limit) {
 // reads the settings from the page, then generates a new set of colors and returns the collection
 // object
 function randomColorSet() {
-    let limit = getContrastLimit();
-    let lineNrValid = getLineNrCheck();
-    let useAnsi = document.getElementById('use-ansi').checked === true;
-    let colors = {};
-    colors.bg = randomColor(useAnsi);
-    colors.fg = randomColor(useAnsi);
-    let attempts = 0;
+    try {
+        let limit = getContrastLimit();
+        let lineNrValid = getLineNrCheck();
+        let useAnsi = document.getElementById('use-ansi').checked === true;
+        let colors = {};
+        colors.bg = randomColor(useAnsi);
+        colors.fg = randomColor(useAnsi);
+        let attempts = 0;
 
-    while (contrastRatio(colors.bg, colors.fg) < limit) {
-        if (++attempts > 10) {
-            // if it takes too long to find a color with enough contrast, start over with a new
-            // background
-            attempts = 0;
-            colors.bg = randomColor(useAnsi);
-        } else {
-            colors.fg = randomColor(useAnsi);
-        }
-    }
-
-    colors.baseContrast = contrastRatio(colors.bg, colors.fg);
-    colors.comment = randomColor(useAnsi);
-
-    while (contrastRatio(colors.bg, colors.comment) < limit
-        || contrastRatio(colors.bg, colors.comment) > colors.baseContrast) {
-        colors.comment = randomColor(useAnsi);
-    }
-
-    for (let name of colorNames) {
-        addColor(colors, name, useAnsi, limit);
-    }
-
-    colors.lineNrBG = randomColor(useAnsi);
-    colors.lineNrFG = randomColor(useAnsi);
-    let goodLineNr = false;
-    attempts = 0;
-
-    while (!goodLineNr) {
-        if (!lineNrValid(contrastRatio(colors.bg, colors.lineNrBG))) {
-            colors.lineNrBG = randomColor(useAnsi);
-        } else if (contrastRatio(colors.lineNrBG, colors.lineNrFG) < limit) {
+        while (contrastRatio(colors.bg, colors.fg) < limit) {
             if (++attempts > 10) {
+                // if it takes too long to find a color with enough contrast, start over with a new
+                // background
                 attempts = 0;
-                colors.lineNrBG = randomColor(useAnsi);
+                colors.bg = randomColor(useAnsi);
             } else {
-                colors.lineNrFG = randomColor(useAnsi);
+                colors.fg = randomColor(useAnsi);
             }
+        }
+
+        colors.baseContrast = contrastRatio(colors.bg, colors.fg);
+        colors.comment = randomColor(useAnsi);
+
+        while (contrastRatio(colors.bg, colors.comment) < limit
+            || contrastRatio(colors.bg, colors.comment) > colors.baseContrast) {
+            colors.comment = randomColor(useAnsi);
+        }
+
+        for (let name of colorNames) {
+            addColor(colors, name, useAnsi, limit);
+        }
+
+        colors.lineNrBG = randomColor(useAnsi);
+        colors.lineNrFG = randomColor(useAnsi);
+        let goodLineNr = false;
+        attempts = 0;
+
+        while (!goodLineNr) {
+            if (!lineNrValid(contrastRatio(colors.bg, colors.lineNrBG))) {
+                colors.lineNrBG = randomColor(useAnsi);
+            } else if (contrastRatio(colors.lineNrBG, colors.lineNrFG) < limit) {
+                if (++attempts > 10) {
+                    attempts = 0;
+                    colors.lineNrBG = randomColor(useAnsi);
+                } else {
+                    colors.lineNrFG = randomColor(useAnsi);
+                }
+            } else {
+                goodLineNr = true;
+            }
+        }
+
+        colors.cursor = randomColor(useAnsi);
+        while (contrastRatio(colors.bg, colors.cursor) < limit) {
+            colors.cursor = randomColor(useAnsi);
+        }
+
+        for (let bg of bgColorNames) {
+            addBgColor(colors, bg, useAnsi, limit);
+        }
+
+        if (document.getElementById('cursorcolumn-same').checked === true) {
+            colors.cursorcolumn = colors.cursorline;
         } else {
-            goodLineNr = true;
+            addBgColor(colors, 'cursorcolumn', useAnsi, limit);
+        }
+
+        return colors;
+    } catch (ex) {
+        if (ex instanceof InvalidColorsError) {
+            console.log('invalid color set; starting over');
+            return randomColorSet();
+        } else {
+            throw ex;
         }
     }
-
-    colors.cursor = randomColor(useAnsi);
-    while (contrastRatio(colors.bg, colors.cursor) < limit) {
-        colors.cursor = randomColor(useAnsi);
-    }
-
-    for (let bg of bgColorNames) {
-        addBgColor(colors, bg, useAnsi, limit);
-    }
-
-    if (document.getElementById('cursorcolumn-same').checked === true) {
-        colors.cursorcolumn = colors.cursorline;
-    } else {
-        addBgColor(colors, 'cursorcolumn', useAnsi, limit);
-    }
-
-    return colors;
 }
 
 // when the user clicks the "change colors" button, generate a new color set and change the CSS

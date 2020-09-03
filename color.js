@@ -138,7 +138,7 @@ function addColor(colors, name, useAnsi, limit) {
     }
 }
 
-var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search'];
+var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen'];
 
 // generates a new color and compares it against the colors in `colorNames` to ensure it meets the
 // given contrast ratio threshold

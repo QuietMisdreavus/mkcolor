@@ -16,6 +16,7 @@
     --color-visual: #222;
     --color-incsearch: #222;
     --color-search: #222;
+    --color-matchparen: #222;
 }
 
 body {
@@ -174,6 +175,11 @@ input.nav-radio {
     color: var(--color-search);
 }
 
+#matchparen-block {
+    background-color: var(--color-matchparen);
+    color: var(--color-matchparen);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -256,4 +262,8 @@ input.nav-radio {
 
 #blocks pre .search {
     background-color: var(--color-search);
+}
+
+#blocks pre .matchparen {
+    background-color: var(--color-matchparen);
 }

@@ -135,7 +135,7 @@ function addColor(colors, name, useAnsi, limit, fgDistinct) {
     let attempts = 0;
 
     while (tryAgain) {
-        if (++attempts > 100) {
+        if (++attempts > 1000) {
             throw new InvalidColorsError;
         }
 
@@ -175,7 +175,7 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
     let attempts = 0;
 
     while (tryAgain) {
-        if (++attempts > 100) {
+        if (++attempts > 1000) {
             throw new InvalidColorsError;
         }
 

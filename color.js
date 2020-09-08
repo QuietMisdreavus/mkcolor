@@ -130,11 +130,39 @@ function randomAnsiColor() {
 var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special'];
 
 // generates a color and adds it to the given colors object using the given name
-function addColor(colors, name, useAnsi, limit) {
-    colors[name] = randomColor(useAnsi);
+function addColor(colors, name, useAnsi, limit, fgDistinct) {
+    let tryAgain = true;
+    let attempts = 0;
 
-    while (contrastRatio(colors.bg, colors[name]) < limit) {
+    while (tryAgain) {
+        if (++attempts > 100) {
+            throw new InvalidColorsError;
+        }
+
         colors[name] = randomColor(useAnsi);
+
+        tryAgain = false;
+
+        if (contrastRatio(colors.bg, colors[name]) < limit) {
+            tryAgain = true;
+            continue;
+        }
+
+        if (fgDistinct) {
+            if (contrastRatio(colors[name], colors.fg) < 1.1) {
+                tryAgain = true;
+                continue;
+            }
+
+            for (let col of colorNames) {
+                if (col in colors && col !== name) {
+                    if (contrastRatio(colors[name], colors[col]) < 1.1) {
+                        tryAgain = true;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -175,6 +203,7 @@ function randomColorSet() {
         let lineNrValid = getLineNrCheck();
         let useAnsi = document.getElementById('use-ansi').checked === true;
         let bgDistinct = document.getElementById('bg-distinct').checked === true;
+        let fgDistinct = document.getElementById('fg-distinct').checked === true;
         let colors = {};
         colors.bg = randomColor(useAnsi);
         colors.fg = randomColor(useAnsi);
@@ -200,7 +229,7 @@ function randomColorSet() {
         }
 
         for (let name of colorNames) {
-            addColor(colors, name, useAnsi, limit);
+            addColor(colors, name, useAnsi, limit, fgDistinct);
         }
 
         colors.lineNrBG = randomColor(useAnsi);

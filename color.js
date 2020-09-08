@@ -142,7 +142,7 @@ var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen']
 
 // generates a new color and compares it against the colors in `colorNames` to ensure it meets the
 // given contrast ratio threshold
-function addBgColor(colors, name, useAnsi, limit) {
+function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
     let tryAgain = true;
     let attempts = 0;
 
@@ -153,7 +153,7 @@ function addBgColor(colors, name, useAnsi, limit) {
 
         colors[name] = randomColor(useAnsi);
 
-        if (contrastRatio(colors[name], colors.bg) < 1.1) {
+        if (bgDistinct && contrastRatio(colors[name], colors.bg) < 1.1) {
             continue;
         }
 
@@ -174,6 +174,7 @@ function randomColorSet() {
         let limit = getContrastLimit();
         let lineNrValid = getLineNrCheck();
         let useAnsi = document.getElementById('use-ansi').checked === true;
+        let bgDistinct = document.getElementById('bg-distinct').checked === true;
         let colors = {};
         colors.bg = randomColor(useAnsi);
         colors.fg = randomColor(useAnsi);
@@ -228,13 +229,13 @@ function randomColorSet() {
         }
 
         for (let bg of bgColorNames) {
-            addBgColor(colors, bg, useAnsi, limit);
+            addBgColor(colors, bg, useAnsi, limit, bgDistinct);
         }
 
         if (document.getElementById('cursorcolumn-same').checked === true) {
             colors.cursorcolumn = colors.cursorline;
         } else {
-            addBgColor(colors, 'cursorcolumn', useAnsi, limit);
+            addBgColor(colors, 'cursorcolumn', useAnsi, limit, bgDistinct);
         }
 
         return colors;

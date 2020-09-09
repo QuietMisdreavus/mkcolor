@@ -64,7 +64,7 @@ input.nav-radio {
 }
 
 #wrapper {
-    width: max-content;
+    max-width: max-content;
     margin: 0 auto;
 }
 
@@ -74,20 +74,48 @@ input.nav-radio {
     margin-top: 2rem;
 }
 
+#demo {
+    flex-grow: 0 !important;
+    margin: 0 auto;
+}
+
 #colors {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
     column-gap: 1rem;
 }
 
+#colors > div {
+    flex: auto;
+}
+
 #settings {
-    columns: 2;
+    columns: 2 20rem;
     margin-top: 1rem;
 }
 
 .form-block {
     break-inside: avoid;
     padding-top: 1rem;
+}
+
+#palette-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    padding-top: 1rem;
+    justify-content: center;
+}
+
+@media(max-width: 700px) {
+    #palette-box {
+        justify-content: space-between;
+    }
+}
+
+#palette-box > div {
+    padding: 0 1rem;
 }
 
 .palette .block {

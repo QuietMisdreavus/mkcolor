@@ -18,6 +18,7 @@
     --color-search: #222;
     --color-matchparen: #222;
     --color-spellbad: #fff;
+    --color-spellcap: #fff;
 }
 
 body {
@@ -192,6 +193,11 @@ input.nav-radio {
     color: var(--color-spellbad);
 }
 
+#spellcap-block {
+    background-color: var(--color-spellcap);
+    color: var(--color-spellcap);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -285,4 +291,11 @@ input.nav-radio {
     text-decoration-style: wavy;
     text-decoration-color: var(--color-spellbad);
     color: var(--color-spellbad);
+}
+
+#blocks pre .spellcap {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--color-spellcap);
+    color: var(--color-spellcap);
 }

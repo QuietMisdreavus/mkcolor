@@ -17,6 +17,7 @@
     --color-incsearch: #222;
     --color-search: #222;
     --color-matchparen: #222;
+    --color-spellbad: #fff;
 }
 
 body {
@@ -180,6 +181,11 @@ input.nav-radio {
     color: var(--color-matchparen);
 }
 
+#spellbad-block {
+    background-color: var(--color-spellbad);
+    color: var(--color-spellbad);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -266,4 +272,8 @@ input.nav-radio {
 
 #blocks pre .matchparen {
     background-color: var(--color-matchparen);
+}
+
+#blocks pre .spellbad {
+    text-decoration: var(--color-spellbad) wavy underline;
 }

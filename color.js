@@ -70,6 +70,43 @@ function addColor(colors, name, useAnsi, limit, fgDistinct) {
     }
 }
 
+var spellColorNames = {
+    spellbad: 'reddish',
+};
+
+function addSpellColor(colors, name, useAnsi, limit) {
+    let tryAgain = true;
+    let attempts = 0;
+
+    while (tryAgain) {
+        colors[name] = randomColor(useAnsi);
+
+        // check the color family of the color before incrementing attempts, because it can take a
+        // few tries just to get the right kind of color out
+        if (spellColorNames[name]) {
+            if (colors[name].ish !== spellColorNames[name]) {
+                continue;
+            }
+        }
+
+        if (++attempts > 1000) {
+            throw new InvalidColorsError;
+        }
+
+        if (contrastRatio(colors[name], colors.bg) < limit) {
+            continue;
+        }
+
+        tryAgain = false;
+        for (let sp in spellColorNames) {
+            if (sp !== name && colors[sp] && colors[name].ish == colors[sp].ish) {
+                tryAgain = true;
+                break;
+            }
+        }
+    }
+}
+
 var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen'];
 
 // generates a new color and compares it against the colors in `colorNames` to ensure it meets the
@@ -136,6 +173,10 @@ function randomColorSet() {
             addColor(colors, name, useAnsi, limit, fgDistinct);
         }
 
+        for (let name in spellColorNames) {
+            addSpellColor(colors, name, useAnsi, limit);
+        }
+
         colors.lineNrBG = randomColor(useAnsi);
         colors.lineNrFG = randomColor(useAnsi);
         let goodLineNr = false;
@@ -199,6 +240,11 @@ document.getElementById('rando').addEventListener('click', function(ev) {
     document.getElementById('comment-col').innerHTML = cols.comment.text;
 
     for (let name of colorNames) {
+        cssVars.setProperty(`--color-${name}`, cols[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = cols[name].text;
+    }
+
+    for (let name in spellColorNames) {
         cssVars.setProperty(`--color-${name}`, cols[name].hex);
         document.getElementById(`${name}-col`).innerHTML = cols[name].text;
     }

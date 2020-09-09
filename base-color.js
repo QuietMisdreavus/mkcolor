@@ -42,5 +42,66 @@ function newColor(r, g, b, idx) {
         col.text += ` (ANSI ${idx})`;
     }
 
+    let hsv = hsvFromColor(col);
+    col.ish = hsv.ish;
+
     return col;
+}
+
+function hsvFromColor(col) {
+    var max = Math.max(col.r, col.g, col.b);
+    var min = Math.min(col.r, col.g, col.b);
+    var d = max - min;
+    var s = (max === 0 ? 0 : d / max);
+    var v = max / 255;
+    var h;
+
+    switch (max) {
+        case min:
+            h = 0;
+            break;
+        case col.r:
+            h = (col.g - col.b) + d * (col.g < col.b ? 6 : 0);
+            h /= 6 * d;
+            break;
+        case col.g:
+            h = (col.b - col.r) + d * 2;
+            h /= 6 * d;
+            break;
+        case col.b:
+            h = (col.r - col.g) + d * 4;
+            h /= 6 * d;
+            break;
+    }
+
+    var ish;
+
+    if (s < 0.1) {
+        ish = "greyish";
+    } else if (v < 0.1) {
+        ish = "blackish";
+    } else {
+        if (h < 0.1) {
+            ish = "reddish";
+        } else if (h < 0.233) {
+            ish = "yellowish";
+        } else if (h < 0.433) {
+            ish = "greenish";
+        } else if (h < 0.566) {
+            ish = "cyanish";
+        } else if (h < 0.766) {
+            ish = "blueish";
+        } else if (h < 0.9) {
+            ish = "magentaish";
+        } else {
+            ish = "reddish";
+        }
+    }
+
+    return {
+        h: h,
+        s: s,
+        v: v,
+        ish: ish
+    };
 }

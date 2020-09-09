@@ -72,7 +72,9 @@ function addColor(colors, name, useAnsi, limit, fgDistinct) {
 
 var spellColorNames = {
     spellbad: 'reddish',
-    spellcap: false
+    spellcap: false,
+    spellrare: false,
+    spelllocal: false
 };
 
 function addSpellColor(colors, name, useAnsi, limit) {

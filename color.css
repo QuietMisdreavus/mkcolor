@@ -19,6 +19,8 @@
     --color-matchparen: #222;
     --color-spellbad: #fff;
     --color-spellcap: #fff;
+    --color-spellrare: #fff;
+    --color-spelllocal: #fff;
 }
 
 body {
@@ -224,6 +226,16 @@ input.nav-radio {
     color: var(--color-spellcap);
 }
 
+#spellrare-block {
+    background-color: var(--color-spellrare);
+    color: var(--color-spellrare);
+}
+
+#spelllocal-block {
+    background-color: var(--color-spelllocal);
+    color: var(--color-spelllocal);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -325,4 +337,18 @@ input.nav-radio {
     text-decoration-style: wavy;
     text-decoration-color: var(--color-spellcap);
     color: var(--color-spellcap);
+}
+
+#blocks pre .spellrare {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--color-spellrare);
+    color: var(--color-spellrare);
+}
+
+#blocks pre .spelllocal {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--color-spelllocal);
+    color: var(--color-spelllocal);
 }

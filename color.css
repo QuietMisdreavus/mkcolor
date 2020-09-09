@@ -275,5 +275,8 @@ input.nav-radio {
 }
 
 #blocks pre .spellbad {
-    text-decoration: var(--color-spellbad) wavy underline;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--color-spellbad);
+    color: var(--color-spellbad);
 }

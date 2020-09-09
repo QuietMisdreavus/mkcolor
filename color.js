@@ -102,7 +102,22 @@ function addSpellColor(colors, name, useAnsi, limit) {
 
         tryAgain = false;
         for (let sp in spellColorNames) {
-            if (sp !== name && colors[sp] && colors[name].ish == colors[sp].ish) {
+            if (sp === name) {
+                continue;
+            }
+            if (!(sp in colors)) {
+                continue;
+            }
+
+            if (contrastRatio(colors[name], colors[sp]) < 1.1) {
+                // if the new color isn't distinct from an already-existing spell color, grab a new
+                // one
+                tryAgain = true;
+                break;
+            }
+            if (spellColorNames[sp] && colors[name].ish == spellColorNames[sp].ish) {
+                // if the new color is the same color family as a color that was forced into one
+                // (e.g. SpellBad and "reddish"), grab a new one
                 tryAgain = true;
                 break;
             }

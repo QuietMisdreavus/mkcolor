@@ -68,7 +68,7 @@ input.nav-radio {
     margin: 0 auto;
 }
 
-#wrapper > *,
+#wrapper > *:not(#settings),
 .top-col > *:not(:first-child):not(#blocks),
 #form > *:not(:first-child) {
     margin-top: 2rem;
@@ -82,13 +82,11 @@ input.nav-radio {
 
 #settings {
     columns: 2;
+    margin-top: 1rem;
 }
 
 .form-block {
     break-inside: avoid;
-}
-
-.form-block:not(:first-child) {
     padding-top: 1rem;
 }
 

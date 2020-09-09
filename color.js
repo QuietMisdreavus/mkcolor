@@ -173,6 +173,12 @@ function randomColorSet() {
             addColor(colors, name, useAnsi, limit, fgDistinct);
         }
 
+        if (document.getElementById('spell-red').checked) {
+            spellColorNames.spellbad = 'reddish';
+        } else {
+            spellColorNames.spellbad = false;
+        }
+
         for (let name in spellColorNames) {
             addSpellColor(colors, name, useAnsi, limit);
         }

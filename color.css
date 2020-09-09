@@ -214,6 +214,7 @@ input.nav-radio {
     background-color: var(--color-bg);
     color: var(--color-fg);
     overflow: hidden;
+    min-width: 85ch;
 }
 
 /* TODO markers are rendered in reverse-video (for now) */

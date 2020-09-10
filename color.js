@@ -29,6 +29,13 @@ function getLineNrCheck() {
     }
 }
 
+function isDistinct(col1, col2) {
+    let cr = contrastRatio(col1, col2);
+    let dist = labDistance(col1, col2);
+
+    return (cr > 1.1 && dist > 20);
+}
+
 // the color classes that can be generated only by comparing their contrast ratio against the
 // background color
 var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special'];
@@ -53,14 +60,14 @@ function addColor(colors, name, useAnsi, limit, fgDistinct) {
         }
 
         if (fgDistinct) {
-            if (contrastRatio(colors[name], colors.fg) < 1.1) {
+            if (!isDistinct(colors[name], colors.fg)) {
                 tryAgain = true;
                 continue;
             }
 
             for (let col of colorNames) {
                 if (col in colors && col !== name) {
-                    if (contrastRatio(colors[name], colors[col]) < 1.1) {
+                    if (!isDistinct(colors[name], colors[col])) {
                         tryAgain = true;
                         break;
                     }
@@ -109,7 +116,7 @@ function addSpellColor(colors, name, useAnsi, limit) {
                 continue;
             }
 
-            if (contrastRatio(colors[name], colors[sp]) < 1.1) {
+            if (!isDistinct(colors[name], colors[sp])) {
                 // if the new color isn't distinct from an already-existing spell color, grab a new
                 // one
                 tryAgain = true;
@@ -140,7 +147,7 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
 
         colors[name] = randomColor(useAnsi);
 
-        if (bgDistinct && contrastRatio(colors[name], colors.bg) < 1.1) {
+        if (bgDistinct && !isDistinct(colors[name], colors.bg)) {
             continue;
         }
 

@@ -49,6 +49,8 @@
     --color-tablinesel-bg: #fff;
     --color-folded-fg: #fff;
     --color-folded-bg: #000;
+    --color-foldcolumn-fg: #fff;
+    --color-foldcolumn-bg: #000;
 }
 
 body {
@@ -319,6 +321,16 @@ input.nav-radio {
     color: var(--color-folded-fg);
 }
 
+#foldcolumn-bg-block {
+    background-color: var(--color-foldcolumn-bg);
+    color: var(--color-foldcolumn-bg);
+}
+
+#foldcolumn-fg-block {
+    background-color: var(--color-foldcolumn-fg);
+    color: var(--color-foldcolumn-fg);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -478,4 +490,9 @@ input.nav-radio {
     font-weight: bold;
     width: 100%;
     display: inline-block;
+}
+
+#blocks pre .foldcolumn {
+    background-color: var(--color-foldcolumn-bg);
+    color: var(--color-foldcolumn-fg);
 }

@@ -74,28 +74,28 @@
 <span class="linenr"> 17 </span>}</pre>
                         <pre id="block-ui">
 <span class="tablinefill"><span class="tabline"> demo.rs </span><span class="tabline"> demo.js </span><span class="tablinesel"> UI Demo </span><span class="tabline right">X</span></span>
-<span class="linenr">  1 </span>              <span class="cursorcolumn"> </span>
-<span class="linenr">  2 </span>              <span class="cursorcolumn"> </span>
-<span class="linenr">  3 </span><span class="cursorline">the cursor is <span class="cursor">h</span>ere</span>
-<span class="linenr">  4 </span>
-<span class="linenr">  5 </span>check out <span class="visual">visual mode</span>
-<span class="linenr">  6 </span>
-<span class="linenr">  7 </span>looking for <span class="incsearch">something</span>?
-<span class="linenr">  8 </span>maybe it's <span class="search">already here</span>
-<span class="linenr">  9 </span>
-<span class="linenr"> 10 </span><span class="cursor">(</span>matching parens<span class="matchparen">)</span>
-<span class="linenr"> 11 </span>
-<span class="linenr"> 12 </span>Looks like <span class="spellbad">thsi</span> word is spelled wrong
-<span class="linenr"> 13 </span><span class="spellcap">lowercase</span> words get flagged too
-<span class="linenr"> 14 </span>the word <span class="spellrare">vim</span> is a "rare" word
-<span class="linenr"> 15 </span>and "<span class="spelllocal">okay</span>" is a "local" word
-<span class="linenr"> 16 </span>
-<span class="linenr"> 17 </span><span class="title"># Heading 1</span>
-<span class="linenr"> 18 </span>this is a paragraph
-<span class="linenr"> 19 </span>
-<span class="linenr"> 20 </span><span class="title">## Heading 1.1</span>
-<span class="linenr"> 21 </span><span class="folded">+---- 2 lines: this paragraph is folded</span>
-<span class="linenr"> 22 </span>
+<span class="foldcolumn">  </span><span class="linenr">  1 </span>              <span class="cursorcolumn"> </span>
+<span class="foldcolumn">  </span><span class="linenr">  2 </span>              <span class="cursorcolumn"> </span>
+<span class="foldcolumn">  </span><span class="linenr">  3 </span><span class="cursorline">the cursor is <span class="cursor">h</span>ere</span>
+<span class="foldcolumn">  </span><span class="linenr">  4 </span>
+<span class="foldcolumn">  </span><span class="linenr">  5 </span>check out <span class="visual">visual mode</span>
+<span class="foldcolumn">  </span><span class="linenr">  6 </span>
+<span class="foldcolumn">  </span><span class="linenr">  7 </span>looking for <span class="incsearch">something</span>?
+<span class="foldcolumn">  </span><span class="linenr">  8 </span>maybe it's <span class="search">already here</span>
+<span class="foldcolumn">  </span><span class="linenr">  9 </span>
+<span class="foldcolumn">  </span><span class="linenr"> 10 </span><span class="cursor">(</span>matching parens<span class="matchparen">)</span>
+<span class="foldcolumn">  </span><span class="linenr"> 11 </span>
+<span class="foldcolumn">  </span><span class="linenr"> 12 </span>Looks like <span class="spellbad">thsi</span> word is spelled wrong
+<span class="foldcolumn">  </span><span class="linenr"> 13 </span><span class="spellcap">lowercase</span> words get flagged too
+<span class="foldcolumn">  </span><span class="linenr"> 14 </span>the word <span class="spellrare">vim</span> is a "rare" word
+<span class="foldcolumn">  </span><span class="linenr"> 15 </span>and "<span class="spelllocal">okay</span>" is a "local" word
+<span class="foldcolumn">  </span><span class="linenr"> 16 </span>
+<span class="foldcolumn">  </span><span class="linenr"> 17 </span><span class="title"># Heading 1</span>
+<span class="foldcolumn">- </span><span class="linenr"> 18 </span>this is a paragraph
+<span class="foldcolumn">| </span><span class="linenr"> 19 </span>
+<span class="foldcolumn">| </span><span class="linenr"> 20 </span><span class="title">## Heading 1.1</span>
+<span class="foldcolumn">|+</span><span class="linenr"> 21 </span><span class="folded">+---- 2 lines: this paragraph is folded</span>
+<span class="foldcolumn">  </span><span class="linenr"> 22 </span>
 <span class="statusline">UI Demo<span class="right">3,15           Top</span></span>
 </pre>
                     </div>
@@ -237,6 +237,14 @@
                             <div>
                                 <span class="block" id="folded-fg-block"> </span>
                                 Folded text foreground: <span id="folded-fg-col">#FFF</span>
+                            </div>
+                            <div>
+                                <span class="block" id="foldcolumn-bg-block"> </span>
+                                Fold column background: <span id="foldcolumn-bg-col">#000</span>
+                            </div>
+                            <div>
+                                <span class="block" id="foldcolumn-fg-block"> </span>
+                                Fold column foreground: <span id="foldcolumn-fg-col">#FFF</span>
                             </div>
                         </div>
                     </div>

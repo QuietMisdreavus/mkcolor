@@ -177,7 +177,7 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
     }
 }
 
-var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded'];
+var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded', 'foldcolumn'];
 
 function addUiColor(colors, name, useAnsi, limit, uiFrameValid) {
     let bgName = `${name}-bg`;

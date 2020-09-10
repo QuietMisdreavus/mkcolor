@@ -132,7 +132,7 @@ function addSpellColor(colors, name, useAnsi, limit) {
     }
 }
 
-var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen'];
+var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen', 'tablinefill'];
 
 // generates a new color and compares it against the colors in `colorNames` to ensure it meets the
 // given contrast ratio threshold
@@ -161,7 +161,7 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
     }
 }
 
-var uiColorNames = ['linenr', 'statusline'];
+var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel'];
 
 function addUiColor(colors, name, useAnsi, limit, uiFrameValid) {
     let bgName = `${name}-bg`;

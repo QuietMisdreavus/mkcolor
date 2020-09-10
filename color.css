@@ -23,6 +23,11 @@
     --color-spelllocal: #fff;
     --color-statusline-fg: #000;
     --color-statusline-bg: #fff;
+    --color-tablinefill: #222;
+    --color-tabline-fg: #fff;
+    --color-tabline-bg: #000;
+    --color-tablinesel-fg: #000;
+    --color-tablinesel-bg: #fff;
 }
 
 body {
@@ -253,6 +258,31 @@ input.nav-radio {
     color: var(--color-statusline-bg);
 }
 
+#tablinefill-block {
+    background-color: var(--color-tablinefill);
+    color: var(--color-tablinefill);
+}
+
+#tabline-bg-block {
+    background-color: var(--color-tabline-bg);
+    color: var(--color-tabline-bg);
+}
+
+#tabline-fg-block {
+    background-color: var(--color-tabline-fg);
+    color: var(--color-tabline-fg);
+}
+
+#tablinesel-bg-block {
+    background-color: var(--color-tablinesel-bg);
+    color: var(--color-tablinesel-bg);
+}
+
+#tablinesel-fg-block {
+    background-color: var(--color-tablinesel-fg);
+    color: var(--color-tablinesel-fg);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -378,6 +408,23 @@ input.nav-radio {
     display: inline-block;
 }
 
-#blocks pre .statusline .status-right {
+#blocks pre .right {
     float: right;
+}
+
+#blocks pre .tablinefill {
+    background-color: var(--color-tablinefill);
+    width: 100%;
+    display: inline-block;
+}
+
+#blocks pre .tabline {
+    background-color: var(--color-tabline-bg);
+    color: var(--color-tabline-fg);
+}
+
+#blocks pre .tablinesel {
+    background-color: var(--color-tablinesel-bg);
+    color: var(--color-tablinesel-fg);
+    font-weight: bold;
 }

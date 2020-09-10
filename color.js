@@ -243,6 +243,26 @@ function randomColorSet() {
             addBgColor(colors, 'cursorcolumn', useAnsi, limit, bgDistinct);
         }
 
+        colors.statusBG = randomColor(useAnsi);
+        colors.statusFG = randomColor(useAnsi);
+        goodLineNr = false;
+        attempts = 0;
+
+        while (!goodLineNr) {
+            if (!lineNrValid(contrastRatio(colors.bg, colors.statusBG))) {
+                colors.statusBG = randomColor(useAnsi);
+            } else if (contrastRatio(colors.statusBG, colors.statusFG) < limit) {
+                if (++attempts > 10) {
+                    attempts = 0;
+                    colors.statusBG = randomColor(useAnsi);
+                } else {
+                    colors.statusFG = randomColor(useAnsi);
+                }
+            } else {
+                goodLineNr = true;
+            }
+        }
+
         return colors;
     } catch (ex) {
         if (ex instanceof InvalidColorsError) {
@@ -297,4 +317,9 @@ document.getElementById('rando').addEventListener('click', function(ev) {
 
     cssVars.setProperty('--color-cursorcolumn', colorScheme.cursorcolumn.hex);
     document.getElementById('cursorcolumn-col').innerHTML = colorScheme.cursorcolumn.text;
+
+    cssVars.setProperty('--color-statusline-bg', colorScheme.statusBG.hex);
+    cssVars.setProperty('--color-statusline-fg', colorScheme.statusFG.hex);
+    document.getElementById('statusline-bg-col').innerHTML = colorScheme.statusBG.text;
+    document.getElementById('statusline-fg-col').innerHTML = colorScheme.statusFG.text;
 });

@@ -21,6 +21,8 @@
     --color-spellcap: #fff;
     --color-spellrare: #fff;
     --color-spelllocal: #fff;
+    --color-statusline-fg: #000;
+    --color-statusline-bg: #fff;
 }
 
 body {
@@ -241,6 +243,16 @@ input.nav-radio {
     color: var(--color-spelllocal);
 }
 
+#statusline-fg-block {
+    background-color: var(--color-statusline-fg);
+    color: var(--color-statusline-fg);
+}
+
+#statusline-bg-block {
+    background-color: var(--color-statusline-bg);
+    color: var(--color-statusline-bg);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -356,4 +368,16 @@ input.nav-radio {
     text-decoration-style: wavy;
     text-decoration-color: var(--color-spelllocal);
     color: var(--color-spelllocal);
+}
+
+#blocks pre .statusline {
+    background-color: var(--color-statusline-bg);
+    color: var(--color-statusline-fg);
+    font-weight: bold;
+    width: 100%;
+    display: inline-block;
+}
+
+#blocks pre .statusline .status-right {
+    float: right;
 }

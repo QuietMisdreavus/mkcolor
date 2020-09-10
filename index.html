@@ -233,6 +233,50 @@
                     </div>
                 </div>
             </div>
+            <hr />
+            <div id="about">
+                <p><a href="https://github.com/QuietMisdreavus/mkcolor">Source code</a></p>
+                <p>
+<b>mkcolor</b> is an experiment in randomly generating text-editor color schemes. Using the
+<a href="https://www.w3.org/TR/WCAG20/#contrast-ratiodef">WCAG definition of contrast ratio</a>, the
+<a href="https://en.wikipedia.org/wiki/CIELAB_color_space">CIELAB color space</a>, and a lot of
+random numbers, this code can (most of the time) generate something that is pretty legible,
+according to some basic parameters.
+                </p>
+                <p>
+When generating a color scheme, the base contrast ratio between the background color and the main
+foreground color is displayed, alongside all the other colors generated. The color list is available
+in case you would like to use a generated color scheme in your own editor or project.
+                </p>
+                <p>
+In addition to settings that tweak things like the minimum acceptable contrast ratio or restraints
+on whether certain categories of colors should be "distinct", an option is available to use
+<a href="https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit">8-bit ANSI terminal color codes</a>
+instead of 24-bit RGB color. This allows you to use these colors in a terminal text editor, like
+non-GUI Vim. When this setting is active, the ANSI code for any given color will be given alongside
+its 24-bit hex code.
+                </p>
+                <p>
+When deciding whether two colors are "distinct", <b>mkcolor</b> uses both the contrast ratio as well
+as a Euclidean distance in the CIELAB color space. If the contrast ratio is greater than 1.1 and the
+CIELAB distance is greater than 20, then two colors are considered "distinct".
+                </p>
+                <p>
+This project owes its inspiration and existence to a number of resources, including (but not limited
+to):
+<ul>
+    <li>The <a href="https://botsin.space/@randomColorContrasts">Random Color Contrasts</a> Mastodon
+        bot, and its source data, <a href="https://randoma11y.com/">randoma11y.com</a>, for the
+        initial inspiration to combine colors together randomly and make something beautiful out of
+        it</li>
+    <li><a href="http://vim-ink.github.io/">vim.ink</a>, a Vim color scheme designer, with a
+        practically-exhaustive list of potential items to add to a color scheme</li>
+    <li>The equations on the WCAG documentation, and in the Wikipedia articles mentioned above</li>
+    <li><a href="https://developer.mozilla.org">Mozilla Developer Network</a>, because i learned a
+        lot about CSS and JavaScript while writing this</li>
+</ul>
+                </p>
+            </div>
         </div>
         <script src="base-color.js"></script>
         <script src="random.js"></script>

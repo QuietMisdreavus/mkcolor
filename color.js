@@ -19,10 +19,10 @@ function getContrastLimit() {
 
 // returns a function which evaluates a contrast ratio for the "line number background contrast"
 // requested by the user
-function getLineNrCheck() {
-    if (document.getElementById('linenr-lo').checked) {
+function getUIFrameCheck() {
+    if (document.getElementById('ui-lo').checked) {
         return function(cr) { return cr < 3; }
-    } else if (document.getElementById('linenr-hi').checked) {
+    } else if (document.getElementById('ui-hi').checked) {
         return function(cr) { return cr > 4.5; }
     } else {
         return function(cr) { return true; }
@@ -166,7 +166,7 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
 function randomColorSet() {
     try {
         let limit = getContrastLimit();
-        let lineNrValid = getLineNrCheck();
+        let uiFrameValid = getUIFrameCheck();
         let useAnsi = document.getElementById('use-ansi').checked === true;
         let bgDistinct = document.getElementById('bg-distinct').checked === true;
         let fgDistinct = document.getElementById('fg-distinct').checked === true;
@@ -210,11 +210,11 @@ function randomColorSet() {
 
         colors.lineNrBG = randomColor(useAnsi);
         colors.lineNrFG = randomColor(useAnsi);
-        let goodLineNr = false;
+        let goodUICol = false;
         attempts = 0;
 
-        while (!goodLineNr) {
-            if (!lineNrValid(contrastRatio(colors.bg, colors.lineNrBG))) {
+        while (!goodUICol) {
+            if (!uiFrameValid(contrastRatio(colors.bg, colors.lineNrBG))) {
                 colors.lineNrBG = randomColor(useAnsi);
             } else if (contrastRatio(colors.lineNrBG, colors.lineNrFG) < limit) {
                 if (++attempts > 10) {
@@ -224,7 +224,7 @@ function randomColorSet() {
                     colors.lineNrFG = randomColor(useAnsi);
                 }
             } else {
-                goodLineNr = true;
+                goodUICol = true;
             }
         }
 
@@ -245,11 +245,11 @@ function randomColorSet() {
 
         colors.statusBG = randomColor(useAnsi);
         colors.statusFG = randomColor(useAnsi);
-        goodLineNr = false;
+        goodUICol = false;
         attempts = 0;
 
-        while (!goodLineNr) {
-            if (!lineNrValid(contrastRatio(colors.bg, colors.statusBG))) {
+        while (!goodUICol) {
+            if (!uiFrameValid(contrastRatio(colors.bg, colors.statusBG))) {
                 colors.statusBG = randomColor(useAnsi);
             } else if (contrastRatio(colors.statusBG, colors.statusFG) < limit) {
                 if (++attempts > 10) {
@@ -259,7 +259,7 @@ function randomColorSet() {
                     colors.statusFG = randomColor(useAnsi);
                 }
             } else {
-                goodLineNr = true;
+                goodUICol = true;
             }
         }
 

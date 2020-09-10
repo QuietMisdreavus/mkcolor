@@ -161,6 +161,33 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
     }
 }
 
+var uiColorNames = ['linenr', 'statusline'];
+
+function addUiColor(colors, name, useAnsi, limit, uiFrameValid) {
+    let bgName = `${name}-bg`;
+    let fgName = `${name}-fg`;
+
+    colors[bgName] = randomColor(useAnsi);
+    colors[fgName] = randomColor(useAnsi);
+    let tryAgain = true;
+    let attempts = 0;
+
+    while (tryAgain) {
+        if (!uiFrameValid(contrastRatio(colors.bg, colors[bgName]))) {
+            colors[bgName] = randomColor(useAnsi);
+        } else if (contrastRatio(colors[bgName], colors[fgName]) < limit) {
+            if (++attempts > 10) {
+                attempts = 0;
+                colors[bgName] = randomColor(useAnsi);
+            } else {
+                colors[fgName] = randomColor(useAnsi);
+            }
+        } else {
+            tryAgain = false;
+        }
+    }
+}
+
 // reads the settings from the page, then generates a new set of colors and returns the collection
 // object
 function randomColorSet() {
@@ -208,24 +235,8 @@ function randomColorSet() {
             addSpellColor(colors, name, useAnsi, limit);
         }
 
-        colors.lineNrBG = randomColor(useAnsi);
-        colors.lineNrFG = randomColor(useAnsi);
-        let goodUICol = false;
-        attempts = 0;
-
-        while (!goodUICol) {
-            if (!uiFrameValid(contrastRatio(colors.bg, colors.lineNrBG))) {
-                colors.lineNrBG = randomColor(useAnsi);
-            } else if (contrastRatio(colors.lineNrBG, colors.lineNrFG) < limit) {
-                if (++attempts > 10) {
-                    attempts = 0;
-                    colors.lineNrBG = randomColor(useAnsi);
-                } else {
-                    colors.lineNrFG = randomColor(useAnsi);
-                }
-            } else {
-                goodUICol = true;
-            }
+        for (let name of uiColorNames) {
+            addUiColor(colors, name, useAnsi, limit, uiFrameValid);
         }
 
         colors.cursor = randomColor(useAnsi);
@@ -241,26 +252,6 @@ function randomColorSet() {
             colors.cursorcolumn = colors.cursorline;
         } else {
             addBgColor(colors, 'cursorcolumn', useAnsi, limit, bgDistinct);
-        }
-
-        colors.statusBG = randomColor(useAnsi);
-        colors.statusFG = randomColor(useAnsi);
-        goodUICol = false;
-        attempts = 0;
-
-        while (!goodUICol) {
-            if (!uiFrameValid(contrastRatio(colors.bg, colors.statusBG))) {
-                colors.statusBG = randomColor(useAnsi);
-            } else if (contrastRatio(colors.statusBG, colors.statusFG) < limit) {
-                if (++attempts > 10) {
-                    attempts = 0;
-                    colors.statusBG = randomColor(useAnsi);
-                } else {
-                    colors.statusFG = randomColor(useAnsi);
-                }
-            } else {
-                goodUICol = true;
-            }
         }
 
         return colors;
@@ -302,10 +293,15 @@ document.getElementById('rando').addEventListener('click', function(ev) {
         document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }
 
-    cssVars.setProperty('--color-linenr-bg', colorScheme.lineNrBG.hex);
-    cssVars.setProperty('--color-linenr-fg', colorScheme.lineNrFG.hex);
-    document.getElementById('linenr-bg-col').innerHTML = colorScheme.lineNrBG.text;
-    document.getElementById('linenr-fg-col').innerHTML = colorScheme.lineNrFG.text;
+    for (let name of uiColorNames) {
+        let bgName = `${name}-bg`;
+        let fgName = `${name}-fg`;
+
+        cssVars.setProperty(`--color-${bgName}`, colorScheme[bgName].hex);
+        cssVars.setProperty(`--color-${fgName}`, colorScheme[fgName].hex);
+        document.getElementById(`${bgName}-col`).innerHTML = colorScheme[bgName].text;
+        document.getElementById(`${fgName}-col`).innerHTML = colorScheme[fgName].text;
+    }
 
     cssVars.setProperty('--color-cursor', colorScheme.cursor.hex);
     document.getElementById('cursor-col').innerHTML = colorScheme.cursor.text;
@@ -317,9 +313,4 @@ document.getElementById('rando').addEventListener('click', function(ev) {
 
     cssVars.setProperty('--color-cursorcolumn', colorScheme.cursorcolumn.hex);
     document.getElementById('cursorcolumn-col').innerHTML = colorScheme.cursorcolumn.text;
-
-    cssVars.setProperty('--color-statusline-bg', colorScheme.statusBG.hex);
-    cssVars.setProperty('--color-statusline-fg', colorScheme.statusFG.hex);
-    document.getElementById('statusline-bg-col').innerHTML = colorScheme.statusBG.text;
-    document.getElementById('statusline-fg-col').innerHTML = colorScheme.statusFG.text;
 });

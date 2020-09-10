@@ -47,6 +47,8 @@
     --color-tabline-bg: #000;
     --color-tablinesel-fg: #000;
     --color-tablinesel-bg: #fff;
+    --color-folded-fg: #fff;
+    --color-folded-bg: #000;
 }
 
 body {
@@ -307,6 +309,16 @@ input.nav-radio {
     color: var(--color-tablinesel-fg);
 }
 
+#folded-bg-block {
+    background-color: var(--color-folded-bg);
+    color: var(--color-folded-bg);
+}
+
+#folded-fg-block {
+    background-color: var(--color-folded-fg);
+    color: var(--color-folded-fg);
+}
+
 #rando {
     margin: 2em auto 0;
     display: block;
@@ -457,4 +469,13 @@ input.nav-radio {
     background-color: var(--color-tablinesel-bg);
     color: var(--color-tablinesel-fg);
     font-weight: bold;
+}
+
+#blocks pre .folded {
+    background-color: var(--color-folded-bg);
+    color: var(--color-folded-fg);
+    /* TODO: make this a toggle? */
+    font-weight: bold;
+    width: 100%;
+    display: inline-block;
 }

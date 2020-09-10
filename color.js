@@ -54,7 +54,7 @@ function isDistinct(col1, col2) {
 
 // the color classes that can be generated only by comparing their contrast ratio against the
 // background color
-var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special'];
+var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special', 'title'];
 
 // generates a color and adds it to the given colors object using the given name
 function addColor(colors, name, useAnsi, limit, fgDistinct) {

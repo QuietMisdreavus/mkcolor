@@ -247,45 +247,47 @@ function randomColorSet() {
     }
 }
 
+var colorScheme = {};
+
 // when the user clicks the "change colors" button, generate a new color set and change the CSS
 // variables to display it on the page
 document.getElementById('rando').addEventListener('click', function(ev) {
-    let cols = randomColorSet();
+    colorScheme = randomColorSet();
 
     let cssVars = document.documentElement.style;
-    cssVars.setProperty('--color-bg', cols.bg.hex);
-    cssVars.setProperty('--color-fg', cols.fg.hex);
-    cssVars.setProperty('--color-comment', cols.comment.hex);
+    cssVars.setProperty('--color-bg', colorScheme.bg.hex);
+    cssVars.setProperty('--color-fg', colorScheme.fg.hex);
+    cssVars.setProperty('--color-comment', colorScheme.comment.hex);
 
-    document.getElementById('ratio').innerHTML = cols.baseContrast.toFixed(2);
+    document.getElementById('ratio').innerHTML = colorScheme.baseContrast.toFixed(2);
 
-    document.getElementById('bg-col').innerHTML = cols.bg.text;
-    document.getElementById('fg-col').innerHTML = cols.fg.text;
-    document.getElementById('comment-col').innerHTML = cols.comment.text;
+    document.getElementById('bg-col').innerHTML = colorScheme.bg.text;
+    document.getElementById('fg-col').innerHTML = colorScheme.fg.text;
+    document.getElementById('comment-col').innerHTML = colorScheme.comment.text;
 
     for (let name of colorNames) {
-        cssVars.setProperty(`--color-${name}`, cols[name].hex);
-        document.getElementById(`${name}-col`).innerHTML = cols[name].text;
+        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }
 
     for (let name in spellColorNames) {
-        cssVars.setProperty(`--color-${name}`, cols[name].hex);
-        document.getElementById(`${name}-col`).innerHTML = cols[name].text;
+        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }
 
-    cssVars.setProperty('--color-linenr-bg', cols.lineNrBG.hex);
-    cssVars.setProperty('--color-linenr-fg', cols.lineNrFG.hex);
-    document.getElementById('linenr-bg-col').innerHTML = cols.lineNrBG.text;
-    document.getElementById('linenr-fg-col').innerHTML = cols.lineNrFG.text;
+    cssVars.setProperty('--color-linenr-bg', colorScheme.lineNrBG.hex);
+    cssVars.setProperty('--color-linenr-fg', colorScheme.lineNrFG.hex);
+    document.getElementById('linenr-bg-col').innerHTML = colorScheme.lineNrBG.text;
+    document.getElementById('linenr-fg-col').innerHTML = colorScheme.lineNrFG.text;
 
-    cssVars.setProperty('--color-cursor', cols.cursor.hex);
-    document.getElementById('cursor-col').innerHTML = cols.cursor.text;
+    cssVars.setProperty('--color-cursor', colorScheme.cursor.hex);
+    document.getElementById('cursor-col').innerHTML = colorScheme.cursor.text;
 
     for (let name of bgColorNames) {
-        cssVars.setProperty(`--color-${name}`, cols[name].hex);
-        document.getElementById(`${name}-col`).innerHTML = cols[name].text;
+        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }
 
-    cssVars.setProperty('--color-cursorcolumn', cols.cursorcolumn.hex);
-    document.getElementById('cursorcolumn-col').innerHTML = cols.cursorcolumn.text;
+    cssVars.setProperty('--color-cursorcolumn', colorScheme.cursorcolumn.hex);
+    document.getElementById('cursorcolumn-col').innerHTML = colorScheme.cursorcolumn.text;
 });

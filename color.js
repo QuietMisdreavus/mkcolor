@@ -122,7 +122,7 @@ function addSpellColor(colors, name, useAnsi, limit) {
                 tryAgain = true;
                 break;
             }
-            if (spellColorNames[sp] && colors[name].ish == spellColorNames[sp].ish) {
+            if (spellColorNames[sp] && colors[name].ish == spellColorNames[sp]) {
                 // if the new color is the same color family as a color that was forced into one
                 // (e.g. SpellBad and "reddish"), grab a new one
                 tryAgain = true;

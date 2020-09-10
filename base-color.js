@@ -28,6 +28,12 @@ function contrastRatio(col1, col2) {
     return (lighter + 0.05) / (darker + 0.05);
 }
 
+function labDistance(col1, col2) {
+    return Math.hypot(col1.lab.l - col2.lab.l,
+                      col1.lab.a - col2.lab.a,
+                      col1.lab.b - col2.lab.b);
+}
+
 // returns a new RGB color using the given RGB values, and, if present, the given ANSI index
 function newColor(r, g, b, idx) {
     let col = { r: r, g: g, b: b };
@@ -42,8 +48,10 @@ function newColor(r, g, b, idx) {
         col.text += ` (ANSI ${idx})`;
     }
 
-    let hsv = hsvFromColor(col);
-    col.ish = hsv.ish;
+    col.hsv = hsvFromColor(col);
+    col.ish = col.hsv.ish;
+
+    col.lab = labFromColor(col);
 
     return col;
 }
@@ -104,4 +112,57 @@ function hsvFromColor(col) {
         v: v,
         ish: ish
     };
+}
+
+// consts used in the CIELAB conversion
+const sigma2 = Math.pow(6 / 29, 2);
+const sigma3 = Math.pow(6 / 29, 3);
+
+// XXX: this function contains a matrix multiplication that i pulled out into slow math! i didn't
+// necessarily care about speed here, just that i didn't want to pull in a dependency to do quick
+// matrix math >_> (or to do the conversion for me, e.g. chroma-js)
+function labFromColor(col) {
+    function xyzFromColor(col) {
+        // apply gamma-expansion
+        function gamma(u) {
+            if (u <= 0.04045) {
+                return u / 12.92;
+            } else {
+                let val = (u + 0.055) / 1.055;
+                return Math.pow(val, 2.4);
+            }
+        }
+
+        let r = gamma(col.r / 255);
+        let g = gamma(col.g / 255);
+        let b = gamma(col.b / 255);
+
+        return {
+            x: (0.42139080 * r) + (0.35758434 * g) + (0.18048079 * b),
+            y: (0.21263901 * r) + (0.71516868 * g) + (0.07219232 * b),
+            z: (0.01933082 * r) + (0.11919478 * g) + (0.95053215 * b)
+        };
+    }
+
+    function labFromXyz(xyz) {
+        function f(t) {
+            if (t > sigma3) {
+                return Math.pow(t, 1/3);
+            } else {
+                return (t / (3 * sigma2)) + (4 / 29);
+            }
+        }
+
+        let normX = f(xyz.x / 0.9505);
+        let normY = f(xyz.y);
+        let normZ = f(xyz.z / 1.0890);
+
+        return {
+            l: (116 * normY) - 16,
+            a: 500 * (normX - normY),
+            b: 200 * (normY - normZ)
+        };
+    }
+
+    return labFromXyz(xyzFromColor(col));
 }

@@ -53,7 +53,20 @@
 <span class="linenr"> 11 </span>    <span class="identifier">None</span>,
 <span class="linenr"> 12 </span>    <span class="special">/// Some value `T`</span>
 <span class="linenr"> 13 </span>    <span class="identifier">Some</span>(T),
-<span class="linenr"> 14 </span>}</pre>
+<span class="linenr"> 14 </span>}
+<span class="linenr"> 15 </span>
+<span class="linenr"> 16 </span><span class="statement">impl</span>&lt;T&gt; <span class="type">Option</span>&lt;T&gt; {
+<span class="linenr"> 17 </span>    <span class="special">/// Maps an `Option&lt;T&gt;` to `Option&lt;U&gt;` by applying a function</span>
+<span class="linenr"> 18 </span>    <span class="special">/// to a contained value.</span>
+<span class="linenr"> 19 </span>    <span class="preproc">#[inline]</span>
+<span class="linenr"> 20 </span>    <span class="statement">pub fn</span> <span class="identifier">map</span>&lt;U, F: <span class="type">FnOnce</span>(T) <span class="statement">-&gt;</span> U&gt;(<span class="constant">self</span>, f: F) -&gt; <span class="type">Option</span>&lt;U&gt; {
+<span class="linenr"> 21 </span>        <span class="statement">match</span> <span class="constant">self</span> {
+<span class="linenr"> 22 </span>            <span class="constant">Some</span>(x) <span class="statement">=&gt;</span> <span class="constant">Some</span>(<span class="identifier">f</span>(x)),
+<span class="linenr"> 23 </span>            <span class="constant">None</span> <span class="statement">=&gt;</span> <span class="constant">None</span>,
+<span class="linenr"> 24 </span>        }
+<span class="linenr"> 25 </span>    }
+<span class="linenr"> 26 </span>}
+</pre>
                         <pre id="block-js">
 <span class="linenr">  1 </span><span class="comment">// Create a new color object with the given RGB values, and, if present,</span>
 <span class="linenr">  2 </span><span class="comment">// the given ANSI index.</span>

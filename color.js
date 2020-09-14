@@ -52,6 +52,35 @@ function isDistinct(col1, col2) {
     return (cr > 1.1 && dist > 20);
 }
 
+function tweakColor(col) {
+    let newCol = col;
+
+    for (var i = 0; i < 5; i++) {
+        // deep-copy the LAB numbers so we don't modify the original color object
+        let lab = {
+            l: newCol.lab.l,
+            a: newCol.lab.a,
+            b: newCol.lab.b
+        };
+        let val = (Math.random() * 10) - 5;
+        switch (getRandomInt(3)) {
+            case 0:
+                lab.l = clamp(lab.l + (val / 2.5), 0, 100);
+                break;
+            case 1:
+                lab.a = clamp(lab.a + val, -128, 128);
+                break;
+            case 2:
+                lab.b = clamp(lab.b + val, -128, 128);
+                break;
+        }
+
+        newCol = colorFromLab(lab);
+    }
+
+    return newCol;
+}
+
 // the color classes that can be generated only by comparing their contrast ratio against the
 // background color
 var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special', 'title'];
@@ -179,22 +208,30 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
 
 var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded', 'foldcolumn'];
 
-function addUiColor(colors, name, useAnsi, limit, uiFrameValid) {
+function addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak) {
+    function makeBg(colors, uiTweak, useAnsi) {
+        if (uiTweak) {
+            return tweakColor(colors.bg);
+        } else {
+            return randomColor(useAnsi);
+        }
+    }
+
     let bgName = `${name}-bg`;
     let fgName = `${name}-fg`;
 
-    colors[bgName] = randomColor(useAnsi);
+    colors[bgName] = makeBg(colors, uiTweak, useAnsi);
     colors[fgName] = randomColor(useAnsi);
     let tryAgain = true;
     let attempts = 0;
 
     while (tryAgain) {
         if (!uiFrameValid(contrastRatio(colors.bg, colors[bgName]))) {
-            colors[bgName] = randomColor(useAnsi);
+            colors[bgName] = makeBg(colors, uiTweak, useAnsi);
         } else if (contrastRatio(colors[bgName], colors[fgName]) < limit) {
             if (++attempts > 10) {
                 attempts = 0;
-                colors[bgName] = randomColor(useAnsi);
+                colors[bgName] = makeBg(colors, uiTweak, useAnsi);
             } else {
                 colors[fgName] = randomColor(useAnsi);
             }
@@ -213,6 +250,7 @@ function randomColorSet() {
         let useAnsi = document.getElementById('use-ansi').checked === true;
         let bgDistinct = document.getElementById('bg-distinct').checked === true;
         let fgDistinct = document.getElementById('fg-distinct').checked === true;
+        let uiTweak = document.getElementById('ui-tweak').checked === true;
         let colors = {};
         colors.bg = randomColor(useAnsi);
         colors.fg = randomColor(useAnsi);
@@ -252,7 +290,7 @@ function randomColorSet() {
         }
 
         for (let name of uiColorNames) {
-            addUiColor(colors, name, useAnsi, limit, uiFrameValid);
+            addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak);
         }
 
         colors.cursor = randomColor(useAnsi);

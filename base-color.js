@@ -14,6 +14,16 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+function clamp(val, min, max) {
+    if (val < min) {
+        return min;
+    } else if (val > max) {
+        return max;
+    } else {
+        return val;
+    }
+}
+
 // calculate the Relative Luminance of the given RGB color
 function luminance(col) {
     function lumVal(v) {
@@ -51,7 +61,7 @@ function labDistance(col1, col2) {
 }
 
 // returns a new RGB color using the given RGB values, and, if present, the given ANSI index
-function newColor(r, g, b, idx) {
+function newColor(r, g, b, idx, lab) {
     let col = { r: r, g: g, b: b };
     let rStr = col.r.toString(16).padStart(2, '0').toUpperCase();
     let gStr = col.g.toString(16).padStart(2, '0').toUpperCase();
@@ -67,7 +77,11 @@ function newColor(r, g, b, idx) {
     col.hsv = hsvFromColor(col);
     col.ish = col.hsv.ish;
 
-    col.lab = labFromColor(col);
+    if (lab) {
+        col.lab = lab;
+    } else {
+        col.lab = labFromColor(col);
+    }
 
     return col;
 }
@@ -131,6 +145,7 @@ function hsvFromColor(col) {
 }
 
 // consts used in the CIELAB conversion
+const sigma  = (6 / 29);
 const sigma2 = Math.pow(6 / 29, 2);
 const sigma3 = Math.pow(6 / 29, 3);
 
@@ -181,4 +196,47 @@ function labFromColor(col) {
     }
 
     return labFromXyz(xyzFromColor(col));
+}
+
+function colorFromLab(lab) {
+    function xyzFromLab(lab) {
+        function f(t) {
+            if (t > sigma) {
+                return Math.pow(t, 3);
+            } else {
+                return 3 * sigma2 * (t - (4/29));
+            }
+        }
+
+        let lTerm = (lab.l + 16) / 116;
+
+        return {
+            x: 0.9505 * f(lTerm + (lab.a / 500)),
+            y:          f(lTerm),
+            z: 1.0890 * f(lTerm + (lab.b / 200))
+        };
+    }
+
+    function colorFromXyz(xyz) {
+        function gamma(u) {
+            if (u <= 0.0031308) {
+                return u / 12.92;
+            } else {
+                let val = (u + 0.055) / 1.055;
+                return Math.pow(val, 2.4);
+            }
+        }
+
+        let linearR =  (xyz.x * 3.24096994) - (xyz.y * 1.53738318) - (xyz.z * 0.49861076);
+        let linearG = -(xyz.x * 0.96924364) + (xyz.y * 1.87596750) + (xyz.z * 0.04155506);
+        let linearB =  (xyz.x * 0.05563008) - (xyz.y * 0.20397696) + (xyz.z * 1.05697151);
+
+        let r = clamp(Math.round(gamma(linearR) * 255), 0, 255);
+        let g = clamp(Math.round(gamma(linearG) * 255), 0, 255);
+        let b = clamp(Math.round(gamma(linearB) * 255), 0, 255);
+
+        return newColor(r, g, b, undefined, lab);
+    }
+
+    return colorFromXyz(xyzFromLab(lab));
 }

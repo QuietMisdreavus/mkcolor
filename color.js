@@ -206,7 +206,7 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
     }
 }
 
-var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded', 'foldcolumn'];
+var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded'];
 
 function addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak) {
     function makeBg(colors, uiTweak, useAnsi) {
@@ -240,6 +240,10 @@ function addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak) {
         }
     }
 }
+
+var uiForceSettings = {
+    'foldcolumn': 'linenr'
+};
 
 // reads the settings from the page, then generates a new set of colors and returns the collection
 // object
@@ -308,6 +312,16 @@ function randomColorSet() {
             addBgColor(colors, 'cursorcolumn', useAnsi, limit, bgDistinct);
         }
 
+        for (let name in uiForceSettings) {
+            if (document.getElementById(`${name}-same`).checked === true) {
+                let orig = uiForceSettings[name];
+                colors[`${name}-bg`] = colors[`${orig}-bg`];
+                colors[`${name}-fg`] = colors[`${orig}-fg`];
+            } else {
+                addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak);
+            }
+        }
+
         return colors;
     } catch (ex) {
         if (ex instanceof InvalidColorsError) {
@@ -367,4 +381,14 @@ document.getElementById('rando').addEventListener('click', function(ev) {
 
     cssVars.setProperty('--color-cursorcolumn', colorScheme.cursorcolumn.hex);
     document.getElementById('cursorcolumn-col').innerHTML = colorScheme.cursorcolumn.text;
+
+    for (let name in uiForceSettings) {
+        let bgName = `${name}-bg`;
+        let fgName = `${name}-fg`;
+
+        cssVars.setProperty(`--color-${bgName}`, colorScheme[bgName].hex);
+        cssVars.setProperty(`--color-${fgName}`, colorScheme[fgName].hex);
+        document.getElementById(`${bgName}-col`).innerHTML = colorScheme[bgName].text;
+        document.getElementById(`${fgName}-col`).innerHTML = colorScheme[fgName].text;
+    }
 });

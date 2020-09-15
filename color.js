@@ -54,18 +54,19 @@ function isDistinct(col1, col2) {
 
 function tweakColor(col) {
     let newCol = col;
+    const reps = Math.round(Math.random() * 5) + 5;
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < reps; i++) {
         // deep-copy the LAB numbers so we don't modify the original color object
         let lab = {
             l: newCol.lab.l,
             a: newCol.lab.a,
             b: newCol.lab.b
         };
-        let val = (Math.random() * 10) - 5;
+        let val = (Math.random() * 20) - 10;
         switch (getRandomInt(3)) {
             case 0:
-                lab.l = clamp(lab.l + (val / 2.5), 0, 100);
+                lab.l = clamp(lab.l + val, 0, 100);
                 break;
             case 1:
                 lab.a = clamp(lab.a + val, -128, 128);

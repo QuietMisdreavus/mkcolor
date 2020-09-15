@@ -213,23 +213,22 @@ function colorFromLab(lab) {
         return {
             x: 0.9505 * f(lTerm + (lab.a / 500)),
             y:          f(lTerm),
-            z: 1.0890 * f(lTerm + (lab.b / 200))
+            z: 1.0890 * f(lTerm - (lab.b / 200))
         };
     }
 
     function colorFromXyz(xyz) {
         function gamma(u) {
             if (u <= 0.0031308) {
-                return u / 12.92;
+                return u * 12.92;
             } else {
-                let val = (u + 0.055) / 1.055;
-                return Math.pow(val, 2.4);
+                return (1.055 * Math.pow(u, (1 / 2.4))) - 0.055
             }
         }
 
-        let linearR =  (xyz.x * 3.24096994) - (xyz.y * 1.53738318) - (xyz.z * 0.49861076);
-        let linearG = -(xyz.x * 0.96924364) + (xyz.y * 1.87596750) + (xyz.z * 0.04155506);
-        let linearB =  (xyz.x * 0.05563008) - (xyz.y * 0.20397696) + (xyz.z * 1.05697151);
+        let linearR = (xyz.x *  3.24096994) + (xyz.y * -1.53738318) + (xyz.z * -0.49861076);
+        let linearG = (xyz.x * -0.96924364) + (xyz.y *  1.87596750) + (xyz.z *  0.04155506);
+        let linearB = (xyz.x *  0.05563008) + (xyz.y * -0.20397696) + (xyz.z *  1.05697151);
 
         let r = clamp(Math.round(gamma(linearR) * 255), 0, 255);
         let g = clamp(Math.round(gamma(linearG) * 255), 0, 255);

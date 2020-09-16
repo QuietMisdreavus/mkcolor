@@ -257,7 +257,16 @@ function randomColorSet() {
         let fgDistinct = document.getElementById('fg-distinct').checked === true;
         let uiTweak = document.getElementById('ui-tweak').checked === true;
         let colors = {};
-        colors.bg = randomColor(useAnsi);
+
+        function newBg(limit, useAnsi) {
+            let col;
+            do {
+                col = randomColor(useAnsi);
+            } while (contrastRatio(col, crMidpoint) < (limit / 2));
+            return col;
+        }
+
+        colors.bg = newBg(limit, useAnsi);
         colors.fg = randomColor(useAnsi);
         let attempts = 0;
 
@@ -266,7 +275,7 @@ function randomColorSet() {
                 // if it takes too long to find a color with enough contrast, start over with a new
                 // background
                 attempts = 0;
-                colors.bg = randomColor(useAnsi);
+                colors.bg = newBg(limit, useAnsi);
             } else {
                 colors.fg = randomColor(useAnsi);
             }

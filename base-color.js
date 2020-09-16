@@ -239,3 +239,5 @@ function colorFromLab(lab) {
 
     return colorFromXyz(xyzFromLab(lab));
 }
+
+const crMidpoint = newColor(0xcf, 0x0d, 0xcc);

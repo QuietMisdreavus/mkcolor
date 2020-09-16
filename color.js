@@ -230,7 +230,7 @@ function addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak) {
         if (!uiFrameValid(contrastRatio(colors.bg, colors[bgName]))) {
             colors[bgName] = makeBg(colors, uiTweak, useAnsi);
         } else if (contrastRatio(colors[bgName], colors[fgName]) < limit) {
-            if (++attempts > 10) {
+            if (++attempts > 500) {
                 attempts = 0;
                 colors[bgName] = makeBg(colors, uiTweak, useAnsi);
             } else {
@@ -262,7 +262,7 @@ function randomColorSet() {
         let attempts = 0;
 
         while (contrastRatio(colors.bg, colors.fg) < limit) {
-            if (++attempts > 10) {
+            if (++attempts > 500) {
                 // if it takes too long to find a color with enough contrast, start over with a new
                 // background
                 attempts = 0;

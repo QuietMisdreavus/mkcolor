@@ -44,6 +44,7 @@
     --color-spellcap: #fff;
     --color-spellrare: #fff;
     --color-spelllocal: #fff;
+    --color-nontext: #444;
     --color-statusline-fg: #000;
     --color-statusline-bg: #fff;
     --color-tablinefill: #222;
@@ -205,6 +206,11 @@
 #spelllocal-block {
     background-color: var(--color-spelllocal);
     color: var(--color-spelllocal);
+}
+
+#nontext-block {
+    background-color: var(--color-nontext);
+    color: var(--color-nontext);
 }
 
 #statusline-fg-block {
@@ -453,4 +459,8 @@
 
 #blocks pre .difftext {
     background-color: var(--color-difftext);
+}
+
+#blocks pre .nontext {
+    color: var(--color-nontext);
 }

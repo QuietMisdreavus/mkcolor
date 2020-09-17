@@ -307,6 +307,8 @@ var uiForceSettings = {
     'signcolumn': 'foldcolumn'
 };
 
+var loContrastColors = ['nontext'];
+
 // reads the settings from the page, then generates a new set of colors and returns the collection
 // object
 function randomColorSet() {
@@ -402,6 +404,14 @@ function randomColorSet() {
             }
         }
 
+        for (let name of loContrastColors) {
+            let cr;
+            do {
+                colors[name] = randomColor(useAnsi);
+            } while (contrastRatio(colors[name], colors.bg) > 4
+                && !isDistinct(colors[name], colors.bg));
+        }
+
         return colors;
     } catch (ex) {
         if (ex instanceof InvalidColorsError) {
@@ -477,5 +487,10 @@ document.getElementById('rando').addEventListener('click', function(ev) {
         cssVars.setProperty(`--color-${fgName}`, colorScheme[fgName].hex);
         document.getElementById(`${bgName}-col`).innerHTML = colorScheme[bgName].text;
         document.getElementById(`${fgName}-col`).innerHTML = colorScheme[fgName].text;
+    }
+
+    for (let name of loContrastColors) {
+        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }
 });

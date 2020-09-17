@@ -14,6 +14,31 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+function maxContrastRatio(col) {
+    let cr = 0;
+
+    for (let r = 0; r < 256; r++) {
+        for (let g = 0; g < 256; g++) {
+            for (let b = 0; b < 256; b++) {
+                let testCol = newColor(r, g, b);
+                cr = Math.max(cr, contrastRatio(col, testCol));
+            }
+        }
+    }
+
+    return cr;
+}
+
+function setBackground(col) {
+    colorScheme.bg = col;
+    colorScheme.baseContrast = contrastRatio(colorScheme.bg, colorScheme.fg);
+
+    document.documentElement.style.setProperty('--color-bg', colorScheme.bg.hex);
+    document.getElementById('bg-col').innerHTML = colorScheme.bg.text;
+
+    document.getElementById('ratio').innerHTML = colorScheme.baseContrast.toFixed(2);
+}
+
 const black = newColor(0, 0, 0);
 const white = newColor(0xff, 0xff, 0xff);
 const labMidpoint = colorFromLab({ l: 50, a: 0, b: 0 });

@@ -54,7 +54,7 @@ function isDistinct(col1, col2) {
 
 function tweakColor(col) {
     let newCol = col;
-    const reps = Math.round(Math.random() * 5) + 5;
+    const reps = Math.round(Math.random() * 10) + 5;
 
     for (var i = 0; i < reps; i++) {
         // deep-copy the LAB numbers so we don't modify the original color object

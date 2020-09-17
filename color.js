@@ -262,10 +262,11 @@ function randomColorSet() {
         let colors = {};
 
         function newBg(limit, useAnsi) {
+            let midpointRadius = (Math.max(0, limit - 1) / 2);
             let col;
             do {
                 col = randomColor(useAnsi);
-            } while (contrastRatio(col, crMidpoint) < (limit / 2));
+            } while (contrastRatio(col, crMidpoint) < midpointRadius);
             return col;
         }
 

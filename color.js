@@ -307,7 +307,7 @@ var uiForceSettings = {
     'signcolumn': 'foldcolumn'
 };
 
-var loContrastColors = ['nontext'];
+var loContrastColors = ['nontext', 'specialkey'];
 
 // reads the settings from the page, then generates a new set of colors and returns the collection
 // object

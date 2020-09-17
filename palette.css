@@ -45,6 +45,7 @@
     --color-spellrare: #fff;
     --color-spelllocal: #fff;
     --color-nontext: #444;
+    --color-specialkey: #aaa;
     --color-statusline-fg: #000;
     --color-statusline-bg: #fff;
     --color-tablinefill: #222;
@@ -211,6 +212,11 @@
 #nontext-block {
     background-color: var(--color-nontext);
     color: var(--color-nontext);
+}
+
+#specialkey-block {
+    background-color: var(--color-specialkey);
+    color: var(--color-specialkey);
 }
 
 #statusline-fg-block {
@@ -463,4 +469,8 @@
 
 #blocks pre .nontext {
     color: var(--color-nontext);
+}
+
+#blocks pre .specialkey {
+    color: var(--color-specialkey);
 }

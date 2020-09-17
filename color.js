@@ -409,7 +409,7 @@ function randomColorSet() {
             do {
                 colors[name] = randomColor(useAnsi);
             } while (contrastRatio(colors[name], colors.bg) > 4
-                && !isDistinct(colors[name], colors.bg));
+                || !isDistinct(colors[name], colors.bg));
         }
 
         return colors;

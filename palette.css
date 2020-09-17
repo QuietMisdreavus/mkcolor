@@ -27,6 +27,7 @@
     --color-preproc: #fff;
     --color-special: #fff;
     --color-title: #fff;
+    --color-todo: #220;
     --color-error: #200;
     --color-linenr-bg: #000;
     --color-linenr-fg: #fff;
@@ -123,6 +124,11 @@
 #title-block {
     background-color: var(--color-title);
     color: var(--color-title);
+}
+
+#todo-block {
+    background-color: var(--color-todo);
+    color: var(--color-todo);
 }
 
 #error-block {
@@ -299,10 +305,8 @@
     color: var(--color-fg);
 }
 
-/* TODO markers are rendered in reverse-video (for now) */
 #blocks pre .todo {
-    background-color: var(--color-comment);
-    color: var(--color-bg);
+    background-color: var(--color-todo);
 }
 
 #blocks pre .comment {

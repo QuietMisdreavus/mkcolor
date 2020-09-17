@@ -263,7 +263,7 @@ function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll
     }
 }
 
-var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded', 'signcolumn'];
+var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded'];
 
 function addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak) {
     function makeBg(colors, uiTweak, useAnsi) {
@@ -303,7 +303,8 @@ var bgForceSettings = {
 };
 
 var uiForceSettings = {
-    'foldcolumn': 'linenr'
+    'foldcolumn': 'linenr',
+    'signcolumn': 'foldcolumn'
 };
 
 // reads the settings from the page, then generates a new set of colors and returns the collection

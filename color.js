@@ -52,6 +52,13 @@ function isDistinct(col1, col2) {
     return (cr > 1.1 && dist > 20);
 }
 
+function isHilightDistinct(col1, col2) {
+    let cr = contrastRatio(col1, col2);
+    let dist = labDistance(col1, col2);
+
+    return (cr > 1.008 && dist > 10);
+}
+
 function tweakColor(col) {
     let newCol = col;
     const reps = Math.round(Math.random() * 10) + 5;
@@ -184,7 +191,7 @@ var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen',
 
 // generates a new color and compares it against the colors in `colorNames` to ensure it meets the
 // given contrast ratio threshold
-function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
+function addBgColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll) {
     let tryAgain = true;
     let attempts = 0;
 
@@ -196,7 +203,7 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
 
         colors[name] = randomColor(useAnsi);
 
-        if (bgDistinct && !isDistinct(colors[name], colors.bg)) {
+        if (bgDistinct && !isHilightDistinct(colors[name], colors.bg)) {
             continue;
         }
 
@@ -207,14 +214,27 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
                 break;
             }
         }
+
+        if (bgDistinctAll) {
+            if (tryAgain) { continue; }
+
+            for (let bg of bgColorNames) {
+                if (!(bg in colors) || bg == name) { continue; }
+
+                if (!isHilightDistinct(colors[name], colors[bg])) {
+                    tryAgain = true;
+                    break;
+                }
+            }
+        }
     }
 }
 
 var bgTweakColors = ['tablinefill'];
 
-function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, uiTweak) {
+function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll, uiTweak) {
     if (!uiTweak) {
-        addBgColor(colors, name, useAnsi, limit, bgDistinct);
+        addBgColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll);
         return;
     }
 
@@ -229,7 +249,7 @@ function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, uiTweak) {
 
         colors[name] = tweakColor(colors.bg);
 
-        if (bgDistinct && !isDistinct(colors[name], colors.bg)) {
+        if (bgDistinct && !isHilightDistinct(colors[name], colors.bg)) {
             continue;
         }
 
@@ -294,6 +314,7 @@ function randomColorSet() {
         let uiFrameValid = getUIFrameCheck();
         let useAnsi = document.getElementById('use-ansi').checked === true;
         let bgDistinct = document.getElementById('bg-distinct').checked === true;
+        let bgDistinctAll = document.getElementById('bg-distinct-all').checked === true;
         let fgDistinct = document.getElementById('fg-distinct').checked === true;
         let uiTweak = document.getElementById('ui-tweak').checked === true;
         let colors = {};
@@ -354,11 +375,11 @@ function randomColorSet() {
         }
 
         for (let bg of bgColorNames) {
-            addBgColor(colors, bg, useAnsi, limit, bgDistinct);
+            addBgColor(colors, bg, useAnsi, limit, bgDistinct, bgDistinctAll);
         }
 
         for (let bg of bgTweakColors) {
-            addBgTweakColor(colors, bg, useAnsi, limit, bgDistinct, uiTweak);
+            addBgTweakColor(colors, bg, useAnsi, limit, bgDistinct, bgDistinctAll, uiTweak);
         }
 
         for (let name in bgForceSettings) {
@@ -366,7 +387,7 @@ function randomColorSet() {
                 let orig = bgForceSettings[name];
                 colors[name] = colors[orig];
             } else {
-                addBgColor(colors, name, useAnsi, limit, bgDistinct);
+                addBgColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll);
             }
         }
 

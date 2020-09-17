@@ -343,6 +343,10 @@
                         <label for="bg-distinct">Force highlight colors to be <abbr title="See below">distinct</abbr> from the background</label>
                     </div>
                     <div>
+                        <input type="checkbox" id="bg-distinct-all" value="bg-distinct-all" checked />
+                        <label for="bg-distinct-all">Force highlight colors to be <abbr title="See below">distinct</abbr> from each other*</label>
+                    </div>
+                    <div>
                         <input type="checkbox" id="fg-distinct" value="fg-distinct" checked />
                         <label for="fg-distinct">Force text colors to be <abbr title="See below">distinct</abbr> from each other*</label>
                     </div>
@@ -383,8 +387,13 @@ its 24-bit hex code.
                 </p>
                 <p>
 When deciding whether two colors are "distinct", <b>mkcolor</b> uses both the contrast ratio as well
-as a Euclidean distance in the CIELAB color space. If the contrast ratio is greater than 1.1 and the
-CIELAB distance is greater than 20, then two colors are considered "distinct".
+as a Euclidean distance in the CIELAB color space. If the contrast ratio between two text colors is
+greater than 1.1 and the CIELAB distance is greater than 20, then two colors are considered
+"distinct". For two highlight colors, or when comparing a highlight color against the main
+background, the contrast ratio needs to be greater than 1.008, and the CIELAB distance greater than
+10. All highlight colors still need to maintain the requested minimum contrast ratio with all text
+colors, so the "distinction" criteria are loosened to prevent runaway situations with a high
+contrast ratio forbidding any color scheme.
                 </p>
                 <p>
 This project owes its inspiration and existence to a number of resources, including (but not limited

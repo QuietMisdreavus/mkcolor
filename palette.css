@@ -55,6 +55,8 @@
     --color-folded-bg: #000;
     --color-foldcolumn-fg: #fff;
     --color-foldcolumn-bg: #000;
+    --color-signcolumn-fg: #fff;
+    --color-signcolumn-bg: #000;
 }
 
 .tab {
@@ -260,6 +262,16 @@
     color: var(--color-foldcolumn-fg);
 }
 
+#signcolumn-bg-block {
+    background-color: var(--color-signcolumn-bg);
+    color: var(--color-signcolumn-bg);
+}
+
+#signcolumn-fg-block {
+    background-color: var(--color-signcolumn-fg);
+    color: var(--color-signcolumn-fg);
+}
+
 #blocks {
     background-color: var(--color-bg);
 }
@@ -414,6 +426,11 @@
 #blocks pre .foldcolumn {
     background-color: var(--color-foldcolumn-bg);
     color: var(--color-foldcolumn-fg);
+}
+
+#blocks pre .signcolumn {
+    background-color: var(--color-signcolumn-bg);
+    color: var(--color-signcolumn-fg);
 }
 
 #blocks pre .diffdelete {

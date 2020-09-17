@@ -36,6 +36,10 @@
     --color-incsearch: #222;
     --color-search: #222;
     --color-matchparen: #222;
+    --color-diffdelete: #200;
+    --color-diffchange: #222;
+    --color-difftext: #000;
+    --color-diffadd: #020;
     --color-spellbad: #fff;
     --color-spellcap: #fff;
     --color-spellrare: #fff;
@@ -159,6 +163,26 @@
 #matchparen-block {
     background-color: var(--color-matchparen);
     color: var(--color-matchparen);
+}
+
+#diffdelete-block {
+    background-color: var(--color-diffdelete);
+    color: var(--color-diffdelete);
+}
+
+#diffchange-block {
+    background-color: var(--color-diffchange);
+    color: var(--color-diffchange);
+}
+
+#difftext-block {
+    background-color: var(--color-difftext);
+    color: var(--color-difftext);
+}
+
+#diffadd-block {
+    background-color: var(--color-diffadd);
+    color: var(--color-diffadd);
 }
 
 #spellbad-block {
@@ -390,4 +414,26 @@
 #blocks pre .foldcolumn {
     background-color: var(--color-foldcolumn-bg);
     color: var(--color-foldcolumn-fg);
+}
+
+#blocks pre .diffdelete {
+    background-color: var(--color-diffdelete);
+    width: 100%;
+    display: inline-block;
+}
+
+#blocks pre .diffadd {
+    background-color: var(--color-diffadd);
+    width: 100%;
+    display: inline-block;
+}
+
+#blocks pre .diffchange {
+    background-color: var(--color-diffchange);
+    width: 100%;
+    display: inline-block;
+}
+
+#blocks pre .difftext {
+    background-color: var(--color-difftext);
 }

@@ -67,7 +67,7 @@
 
 #nav-rust:checked ~ #tabs #label-rust,
 #nav-js:checked ~ #tabs #label-js,
-#nav-ui:checked ~ #tabs #label-ui {
+#nav-editor:checked ~ #tabs #label-editor {
     background-color: var(--color-bg);
     color: var(--color-fg);
     font-style: italic;

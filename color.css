@@ -44,7 +44,7 @@ input.nav-radio {
 
 #nav-rust:checked ~ #blocks #block-rust,
 #nav-js:checked ~ #blocks #block-js,
-#nav-ui:checked ~ #blocks #block-ui {
+#nav-editor:checked ~ #blocks #block-editor {
     display: block;
 }
 

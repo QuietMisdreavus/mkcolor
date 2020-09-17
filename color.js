@@ -93,6 +93,7 @@ function addColor(colors, name, useAnsi, limit, fgDistinct) {
 
     while (tryAgain) {
         if (++attempts > 5000) {
+            reportInvalidScheme(colors.bg);
             throw new InvalidColorsError;
         }
 
@@ -146,6 +147,7 @@ function addSpellColor(colors, name, useAnsi, limit) {
         }
 
         if (++attempts > 5000) {
+            reportInvalidScheme(colors.bg);
             throw new InvalidColorsError;
         }
 
@@ -188,6 +190,7 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
 
     while (tryAgain) {
         if (++attempts > 5000) {
+            reportInvalidScheme(colors.bg);
             throw new InvalidColorsError;
         }
 

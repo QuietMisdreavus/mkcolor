@@ -230,7 +230,9 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll) {
     }
 }
 
-var bgTweakColors = ['tablinefill'];
+var bgTweakColors = {
+    'tablinefill': 'tabline-bg'
+};
 
 function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll, uiTweak) {
     if (!uiTweak) {
@@ -381,8 +383,13 @@ function randomColorSet() {
             addBgColor(colors, bg, useAnsi, limit, bgDistinct, bgDistinctAll);
         }
 
-        for (let bg of bgTweakColors) {
-            addBgTweakColor(colors, bg, useAnsi, limit, bgDistinct, bgDistinctAll, uiTweak);
+        for (let bg in bgTweakColors) {
+            if (bgTweakColors[bg]
+                && document.getElementById(`${bg}-same`).checked === true) {
+                colors[bg] = colors[bgTweakColors[bg]];
+            } else {
+                addBgTweakColor(colors, bg, useAnsi, limit, bgDistinct, bgDistinctAll, uiTweak);
+            }
         }
 
         for (let name in bgForceSettings) {
@@ -437,7 +444,7 @@ document.getElementById('rando').addEventListener('click', function(ev) {
         colorNames,
         Object.keys(spellColorNames),
         bgColorNames,
-        bgTweakColors,
+        Object.keys(bgTweakColors),
         Object.keys(bgForceSettings),
         loContrastColors
     );

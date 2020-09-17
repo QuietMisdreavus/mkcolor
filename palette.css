@@ -27,6 +27,7 @@
     --color-preproc: #fff;
     --color-special: #fff;
     --color-title: #fff;
+    --color-error: #200;
     --color-linenr-bg: #000;
     --color-linenr-fg: #fff;
     --color-cursorline: #111;
@@ -122,6 +123,11 @@
 #title-block {
     background-color: var(--color-title);
     color: var(--color-title);
+}
+
+#error-block {
+    background-color: var(--color-error);
+    color: var(--color-error);
 }
 
 #linenr-bg-block {
@@ -330,6 +336,11 @@
 #blocks pre .title {
     color: var(--color-title);
     /* TODO: make this a toggle? */
+    font-weight: bold;
+}
+
+#blocks pre .error {
+    background-color: var(--color-error);
     font-weight: bold;
 }
 

@@ -187,7 +187,7 @@ function addSpellColor(colors, name, useAnsi, limit) {
     }
 }
 
-var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen', 'diffdelete', 'diffchange', 'difftext', 'diffadd'];
+var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen', 'diffdelete', 'diffchange', 'difftext', 'diffadd', 'error'];
 
 // generates a new color and compares it against the colors in `colorNames` to ensure it meets the
 // given contrast ratio threshold

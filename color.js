@@ -430,28 +430,28 @@ var colorScheme = {};
 document.getElementById('rando').addEventListener('click', function(ev) {
     colorScheme = randomColorSet();
 
-    let cssVars = document.documentElement.style;
-    cssVars.setProperty('--color-bg', colorScheme.bg.hex);
-    cssVars.setProperty('--color-fg', colorScheme.fg.hex);
-    cssVars.setProperty('--color-comment', colorScheme.comment.hex);
-
     document.getElementById('ratio').innerHTML = colorScheme.baseContrast.toFixed(2);
 
-    document.getElementById('bg-col').innerHTML = colorScheme.bg.text;
-    document.getElementById('fg-col').innerHTML = colorScheme.fg.text;
-    document.getElementById('comment-col').innerHTML = colorScheme.comment.text;
+    let standardColors = ['bg', 'fg', 'comment', 'cursor'];
+    standardColors = standardColors.concat(
+        colorNames,
+        Object.keys(spellColorNames),
+        bgColorNames,
+        bgTweakColors,
+        Object.keys(bgForceSettings),
+        loContrastColors
+    );
 
-    for (let name of colorNames) {
+    let uiColors = uiColorNames.concat(Object.keys(uiForceSettings));
+
+    let cssVars = document.documentElement.style;
+
+    for (let name of standardColors) {
         cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
         document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }
 
-    for (let name in spellColorNames) {
-        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
-        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
-    }
-
-    for (let name of uiColorNames) {
+    for (let name of uiColors) {
         let bgName = `${name}-bg`;
         let fgName = `${name}-fg`;
 
@@ -459,38 +459,5 @@ document.getElementById('rando').addEventListener('click', function(ev) {
         cssVars.setProperty(`--color-${fgName}`, colorScheme[fgName].hex);
         document.getElementById(`${bgName}-col`).innerHTML = colorScheme[bgName].text;
         document.getElementById(`${fgName}-col`).innerHTML = colorScheme[fgName].text;
-    }
-
-    cssVars.setProperty('--color-cursor', colorScheme.cursor.hex);
-    document.getElementById('cursor-col').innerHTML = colorScheme.cursor.text;
-
-    for (let name of bgColorNames) {
-        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
-        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
-    }
-
-    for (let name of bgTweakColors) {
-        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
-        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
-    }
-
-    for (let name in bgForceSettings) {
-        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
-        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
-    }
-
-    for (let name in uiForceSettings) {
-        let bgName = `${name}-bg`;
-        let fgName = `${name}-fg`;
-
-        cssVars.setProperty(`--color-${bgName}`, colorScheme[bgName].hex);
-        cssVars.setProperty(`--color-${fgName}`, colorScheme[fgName].hex);
-        document.getElementById(`${bgName}-col`).innerHTML = colorScheme[bgName].text;
-        document.getElementById(`${fgName}-col`).innerHTML = colorScheme[fgName].text;
-    }
-
-    for (let name of loContrastColors) {
-        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
-        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }
 });

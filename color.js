@@ -180,7 +180,7 @@ function addSpellColor(colors, name, useAnsi, limit) {
     }
 }
 
-var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen', 'tablinefill'];
+var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen'];
 
 // generates a new color and compares it against the colors in `colorNames` to ensure it meets the
 // given contrast ratio threshold
@@ -195,6 +195,39 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct) {
         }
 
         colors[name] = randomColor(useAnsi);
+
+        if (bgDistinct && !isDistinct(colors[name], colors.bg)) {
+            continue;
+        }
+
+        tryAgain = false;
+        for (let fg of colorNames) {
+            if (contrastRatio(colors[name], colors[fg]) < limit) {
+                tryAgain = true;
+                break;
+            }
+        }
+    }
+}
+
+var bgTweakColors = ['tablinefill'];
+
+function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, uiTweak) {
+    if (!uiTweak) {
+        addBgColor(colors, name, useAnsi, limit, bgDistinct);
+        return;
+    }
+
+    let tryAgain = true;
+    let attempts = 0;
+
+    while (tryAgain) {
+        if (++attempts > 5000) {
+            reportInvalidScheme(colors.bg);
+            throw new InvalidColorsError;
+        }
+
+        colors[name] = tweakColor(colors.bg);
 
         if (bgDistinct && !isDistinct(colors[name], colors.bg)) {
             continue;
@@ -320,6 +353,10 @@ function randomColorSet() {
             addBgColor(colors, bg, useAnsi, limit, bgDistinct);
         }
 
+        for (let bg of bgTweakColors) {
+            addBgTweakColor(colors, bg, useAnsi, limit, bgDistinct, uiTweak);
+        }
+
         if (document.getElementById('cursorcolumn-same').checked === true) {
             colors.cursorcolumn = colors.cursorline;
         } else {
@@ -389,6 +426,11 @@ document.getElementById('rando').addEventListener('click', function(ev) {
     document.getElementById('cursor-col').innerHTML = colorScheme.cursor.text;
 
     for (let name of bgColorNames) {
+        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
+    }
+
+    for (let name of bgTweakColors) {
         cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
         document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }

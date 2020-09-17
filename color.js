@@ -278,6 +278,10 @@ function addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak) {
     }
 }
 
+var bgForceSettings = {
+    'cursorcolumn': 'cursorline'
+};
+
 var uiForceSettings = {
     'foldcolumn': 'linenr'
 };
@@ -357,10 +361,13 @@ function randomColorSet() {
             addBgTweakColor(colors, bg, useAnsi, limit, bgDistinct, uiTweak);
         }
 
-        if (document.getElementById('cursorcolumn-same').checked === true) {
-            colors.cursorcolumn = colors.cursorline;
-        } else {
-            addBgColor(colors, 'cursorcolumn', useAnsi, limit, bgDistinct);
+        for (let name in bgForceSettings) {
+            if (document.getElementById(`${name}-same`).checked === true) {
+                let orig = bgForceSettings[name];
+                colors[name] = colors[orig];
+            } else {
+                addBgColor(colors, name, useAnsi, limit, bgDistinct);
+            }
         }
 
         for (let name in uiForceSettings) {
@@ -435,8 +442,10 @@ document.getElementById('rando').addEventListener('click', function(ev) {
         document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
     }
 
-    cssVars.setProperty('--color-cursorcolumn', colorScheme.cursorcolumn.hex);
-    document.getElementById('cursorcolumn-col').innerHTML = colorScheme.cursorcolumn.text;
+    for (let name in bgForceSettings) {
+        cssVars.setProperty(`--color-${name}`, colorScheme[name].hex);
+        document.getElementById(`${name}-col`).innerHTML = colorScheme[name].text;
+    }
 
     for (let name in uiForceSettings) {
         let bgName = `${name}-bg`;

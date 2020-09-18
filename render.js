@@ -103,6 +103,19 @@ function renderHighlight(name, fg, bg, style) {
     return line;
 }
 
+function generateDownload(filename, content) {
+    let elem = document.createElement('a');
+    elem.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+    elem.setAttribute('download', filename);
+
+    elem.style.display = 'none';
+    document.body.appendChild(elem);
+
+    elem.click();
+
+    document.body.removeChild(elem);
+}
+
 document.getElementById('download').addEventListener('click', function(ev) {
     let name = prompt("Color scheme name:", "mkcolor");
 
@@ -179,5 +192,5 @@ document.getElementById('download').addEventListener('click', function(ev) {
         output += renderHighlight(name, colorScheme[fgName], colorScheme[bgName], style);
     }
 
-    console.log(output);
+    generateDownload(`${name}.vim`, output);
 });

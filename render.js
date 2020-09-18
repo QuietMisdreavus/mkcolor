@@ -163,6 +163,8 @@ document.getElementById('download').addEventListener('click', function(ev) {
         output += renderHighlight(col, colorScheme[col], none, 'undercurl');
     }
 
+    output += '\n';
+
     let uiColors = uiColorNames.concat(Object.keys(uiForceSettings));
 
     for (let name of uiColors) {

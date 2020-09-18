@@ -267,7 +267,7 @@ function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll
     }
 }
 
-var uiColorNames = ['linenr', 'statusline', 'statuslinenc', 'tabline', 'tablinesel', 'folded', 'vertsplit', 'pmenu', 'pmenusel'];
+var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded', 'vertsplit', 'pmenu', 'pmenusel'];
 
 function addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak) {
     function makeBg(colors, uiTweak, useAnsi) {
@@ -308,7 +308,8 @@ var bgForceSettings = {
 
 var uiForceSettings = {
     'foldcolumn': 'linenr',
-    'signcolumn': 'foldcolumn'
+    'signcolumn': 'foldcolumn',
+    'statuslinenc': 'statusline'
 };
 
 var loContrastColors = ['nontext', 'specialkey'];

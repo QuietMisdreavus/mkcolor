@@ -14,8 +14,64 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+function vimGroupName(name) {
+    let groupNames = {
+        'identifier': 'Identifier',
+        'constant': 'Constant',
+        'type': 'Type',
+        'statement': 'Statement',
+        'preproc': 'PreProc',
+        'special': 'Special',
+        'title': 'Title',
+        'modemsg': 'ModeMsg',
+        'moremsg': 'MoreMsg',
+        'directory': 'Directory',
+        'cursorline': 'CursorLine',
+        'visual': 'Visual',
+        'incsearch': 'IncSearch',
+        'search': 'Search',
+        'matchparen': 'MatchParen',
+        'diffdelete': 'DiffDelete',
+        'diffchange': 'DiffChange',
+        'difftext': 'DiffText',
+        'diffadd': 'DiffAdd',
+        'error': 'Error',
+        'todo': 'Todo',
+        'warningmsg': 'WarningMsg',
+        'errormsg': 'ErrorMsg',
+        'wildmenu': 'WildMenu',
+        'linenr': 'LineNr',
+        'statusline': 'StatusLine',
+        'tabline': 'TabLine',
+        'tablinesel': 'TabLineSel',
+        'folded': 'Folded',
+        'pmenu': 'Pmenu',
+        'pmenusel': 'PmenuSel',
+        'nontext': 'NonText',
+        'specialkey': 'SpecialKey',
+        'foldcolumn': 'FoldColumn',
+        'signcolumn': 'SignColumn',
+        'statuslinenc': 'StatusLineNC',
+        'vertsplit': 'VertSplit',
+        'spellbad': 'SpellBad',
+        'spellcap': 'SpellCap',
+        'spellrare': 'SpellRare',
+        'spelllocal': 'SpellLocal',
+        'tablinefill': 'TabLineFill',
+        'pmenusbar': 'PmenuSbar',
+        'pmenuthumb': 'PmenuThumb',
+        'cursorcolumn': 'CursorColumn'
+    };
+
+    if (groupNames[name]) {
+        return groupNames[name];
+    } else {
+        return name;
+    }
+}
+
 function renderHighlight(name, fg, bg, style) {
-    let line = `hi ${name}`;
+    let line = `hi ${vimGroupName(name)}`;
 
     if (fg) {
         line += ` guifg=${fg.hex}`;
@@ -74,8 +130,6 @@ document.getElementById('download').addEventListener('click', function(ev) {
     output += renderHighlight('Normal', colorScheme.fg, colorScheme.bg);
     output += renderHighlight('Comment', colorScheme.comment);
     output += renderHighlight('Cursor', colorScheme.cursor, none, 'reverse');
-
-    // TODO: convert all the color names in use to the properly-capitalized forms
 
     let boldColors = ['title', 'error', 'statusline', 'tablinesel', 'folded'];
 

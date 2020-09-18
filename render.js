@@ -1,0 +1,127 @@
+//  mkcolor - a vim color scheme randomizer/previewer
+//  Copyright (C) 2020 QuietMisdreavus
+
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Affero General Public License as published
+//  by the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Affero General Public License for more details.
+
+//  You should have received a copy of the GNU Affero General Public License
+//  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+function renderHighlight(name, fg, bg, style) {
+    let line = `hi ${name}`;
+
+    if (fg) {
+        line += ` guifg=${fg.hex}`;
+        if (fg.idx) {
+            line += ` ctermfg=${fg.idx}`;
+        }
+    }
+
+    if (bg) {
+        line += ` guibg=${bg.hex}`;
+        if (bg.idx) {
+            line += ` ctermbg=${bg.idx}`;
+        }
+    }
+
+    if (style) {
+        line += ` gui=${style}`;
+        let hasIdx = (fg && fg.idx) || (bg && bg.idx);
+        if (hasIdx) {
+            if (style === 'undercurl') {
+                line += ' cterm=underline';
+            } else {
+                line += ` cterm=${style}`;
+            }
+        }
+    }
+
+    line += '\n';
+    return line;
+}
+
+document.getElementById('download').addEventListener('click', function(ev) {
+    let name = prompt("Color scheme name:", "mkcolor");
+
+    if (name === null) {
+        return;
+    }
+
+    let output = '';
+
+    output += '" This file was generated using mkcolor - https://quietmisdreavus.github.io/mkcolor/\n';
+    output += '" To use this color scheme in your Vim configuration, save it to ~/.vim/colors/.\n\n';
+
+    if (colorScheme.bg.lab.l < 50) {
+        output += 'set background=dark\n';
+    } else {
+        output += 'set background=light\n';
+    }
+
+    output += 'hi clear\n';
+    output += 'syntax reset\n';
+    output += `let g:colors_name = "${name}"\n\n`;
+
+    const none = undefined;
+
+    output += renderHighlight('Normal', colorScheme.fg, colorScheme.bg);
+    output += renderHighlight('Comment', colorScheme.comment);
+    output += renderHighlight('Cursor', colorScheme.cursor, none, 'reverse');
+
+    // TODO: convert all the color names in use to the properly-capitalized forms
+
+    let boldColors = ['title', 'error', 'statusline', 'tablinesel', 'folded'];
+
+    let textColors = colorNames.concat(loContrastColors);
+
+    for (let col of textColors) {
+        let style = undefined;
+        if (boldColors.includes(col)) {
+            style = 'bold';
+        }
+
+        output += renderHighlight(col, colorScheme[col], none, style);
+    }
+
+    output += '\n';
+
+    let bgColors = bgColorNames.concat(Object.keys(bgTweakColors), Object.keys(bgForceSettings));
+
+    for (let col of bgColors) {
+        let style = undefined;
+        if (boldColors.includes(col)) {
+            style = 'bold';
+        }
+
+        output += renderHighlight(col, none, colorScheme[col], style);
+    }
+
+    output += '\n';
+
+    for (let col in spellColorNames) {
+        output += renderHighlight(col, colorScheme[col], none, 'undercurl');
+    }
+
+    let uiColors = uiColorNames.concat(Object.keys(uiForceSettings));
+
+    for (let name of uiColors) {
+        let bgName = `${name}-bg`;
+        let fgName = `${name}-fg`;
+
+        let style = undefined;
+        if (boldColors.includes(name)) {
+            style = 'bold';
+        }
+
+        output += renderHighlight(name, colorScheme[fgName], colorScheme[bgName], style);
+    }
+
+    console.log(output);
+});

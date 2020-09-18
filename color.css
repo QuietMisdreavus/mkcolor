@@ -116,9 +116,9 @@ input.nav-radio {
     height: 1rem;
 }
 
-#rando {
-    margin: 2em auto 0;
-    display: block;
+#buttons {
+    margin: 0 auto;
+    max-width: max-content;
 }
 
 #blocks {

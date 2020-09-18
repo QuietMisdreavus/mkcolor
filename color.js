@@ -498,4 +498,6 @@ document.getElementById('rando').addEventListener('click', function(ev) {
         document.getElementById(`${bgName}-col`).innerHTML = colorScheme[bgName].text;
         document.getElementById(`${fgName}-col`).innerHTML = colorScheme[fgName].text;
     }
+
+    document.getElementById('download').disabled = false;
 });

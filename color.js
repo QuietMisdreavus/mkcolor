@@ -231,7 +231,9 @@ function addBgColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll) {
 }
 
 var bgTweakColors = {
-    'tablinefill': 'tabline-bg'
+    'tablinefill': 'tabline-bg',
+    'pmenusbar': false,
+    'pmenuthumb': false
 };
 
 function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll, uiTweak) {
@@ -265,7 +267,7 @@ function addBgTweakColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll
     }
 }
 
-var uiColorNames = ['linenr', 'statusline', 'tabline', 'tablinesel', 'folded'];
+var uiColorNames = ['linenr', 'statusline', 'statuslinenc', 'tabline', 'tablinesel', 'folded', 'vertsplit', 'pmenu', 'pmenusel'];
 
 function addUiColor(colors, name, useAnsi, limit, uiFrameValid, uiTweak) {
     function makeBg(colors, uiTweak, useAnsi) {

@@ -34,10 +34,12 @@
                     <input type="radio" name="nav-tab" class="nav-radio" id="nav-rust" checked />
                     <input type="radio" name="nav-tab" class="nav-radio" id="nav-js" />
                     <input type="radio" name="nav-tab" class="nav-radio" id="nav-editor" />
+                    <input type="radio" name="nav-tab" class="nav-radio" id="nav-ui" />
                     <div id="tabs">
                         <label for="nav-rust" id="label-rust" class="tab">Rust</label>
                         <label for="nav-js" id="label-js" class="tab">JavaScript</label>
                         <label for="nav-editor" id="label-editor" class="tab">Editor</label>
+                        <label for="nav-ui" id="label-ui" class="tab">UI</label>
                     </div>
                     <div id="blocks">
                         <pre id="block-rust">
@@ -87,7 +89,7 @@
 <span class="linenr"> 16 </span>    <span class="statement">return</span> col;
 <span class="linenr"> 17 </span>}</pre>
                         <pre id="block-editor">
-<span class="tablinefill"><span class="tabline"> demo.rs </span><span class="tabline"> demo.js </span><span class="tablinesel"> Editor Demo </span><span class="tabline right">X</span></span>
+<span class="tablinefill"><span class="tabline"> demo.rs </span><span class="tabline"> demo.js </span><span class="tablinesel"> Editor Demo </span><span class="tabline"> UI Demo </span><span class="tabline right">X</span></span>
 <span class="foldcolumn">  </span><span class="linenr">  1 </span>              <span class="cursorcolumn"> </span>
 <span class="foldcolumn">  </span><span class="linenr">  2 </span>              <span class="cursorcolumn"> </span>
 <span class="foldcolumn">  </span><span class="linenr">  3 </span><span class="cursorline">the cursor is <span class="cursor">h</span>ere</span>
@@ -120,6 +122,17 @@
 <span class="nontext">~</span>
 <span class="nontext">~</span>
 <span class="statusline">Editor Demo<span class="right">3,15           All</span></span>
+</pre>
+<pre id="block-ui">
+<span class="tablinefill"><span class="tabline"> demo.rs </span><span class="tabline"> demo.js </span><span class="tabline"> Editor Demo </span><span class="tablinesel"> UI Demo </span><span class="tabline right">X</span></span>
+this screen shows     <span class="vertsplit">|</span>
+various other Vim-    <span class="vertsplit">|</span>  f
+specific UI elements  <span class="vertsplit">|</span>  <span class="pmenu">foo       </span><span class="pmenusbar"> </span>
+                      <span class="vertsplit">|</span>  <span class="pmenusel">foobar    </span><span class="pmenusbar"> </span>
+                      <span class="vertsplit">|</span>  <span class="pmenu">fun       </span><span class="pmenuthumb"> </span>
+                      <span class="vertsplit">|</span>  <span class="pmenu">function  </span><span class="pmenusbar"> </span>
+                      <span class="vertsplit">|</span>
+<span class="statuslinenc">inactive status        </span><span class="statusline">active status</span>
 </pre>
                     </div>
                 </div>
@@ -263,7 +276,15 @@
                             </div>
                             <div>
                                 <span class="block" id="statusline-fg-block"> </span>
-                                Status line text: <span id="statusline-fg-col">#FFF</span>
+                                Status line text: <span id="statusline-fg-col">#000</span>
+                            </div>
+                            <div>
+                                <span class="block" id="statuslinenc-bg-block"> </span>
+                                Inactive status line background: <span id="statuslinenc-bg-col">#FFF</span>
+                            </div>
+                            <div>
+                                <span class="block" id="statuslinenc-fg-block"> </span>
+                                Inactive status line text: <span id="statuslinenc-fg-col">#000</span>
                             </div>
                             <div>
                                 <span class="block" id="tabline-bg-block"> </span>
@@ -308,6 +329,38 @@
                             <div>
                                 <span class="block" id="signcolumn-fg-block"> </span>
                                 Sign column text: <span id="signcolumn-fg-col">#FFF</span>
+                            </div>
+                            <div>
+                                <span class="block" id="vertsplit-bg-block"> </span>
+                                Vertical split background: <span id="vertsplit-bg-col">#FFF</span>
+                            </div>
+                            <div>
+                                <span class="block" id="vertsplit-fg-block"> </span>
+                                Vertical split text: <span id="vertsplit-fg-col">#000</span>
+                            </div>
+                            <div>
+                                <span class="block" id="pmenu-bg-block"> </span>
+                                Popup menu background: <span id="pmenu-bg-col">#FFF</span>
+                            </div>
+                            <div>
+                                <span class="block" id="pmenu-fg-block"> </span>
+                                Popup menu text: <span id="pmenu-fg-col">#000</span>
+                            </div>
+                            <div>
+                                <span class="block" id="pmenusel-bg-block"> </span>
+                                Popup menu selection background: <span id="pmenusel-bg-col">#DDD</span>
+                            </div>
+                            <div>
+                                <span class="block" id="pmenusel-fg-block"> </span>
+                                Popup menu selection text: <span id="pmenusel-fg-col">#000</span>
+                            </div>
+                            <div>
+                                <span class="block" id="pmenusbar-block"> </span>
+                                Popup menu scrollbar: <span id="pmenusbar-col">#DDD</span>
+                            </div>
+                            <div>
+                                <span class="block" id="pmenuthumb-block"> </span>
+                                Popup menu scrollbar position: <span id="pmenuthumb-col">#FFF</span>
                             </div>
                         </div>
                     </div>

@@ -29,8 +29,13 @@
     --color-title: #fff;
     --color-todo: #220;
     --color-error: #200;
-    --color-linenr-bg: #000;
-    --color-linenr-fg: #fff;
+    --color-spellbad: #fff;
+    --color-spellcap: #fff;
+    --color-spellrare: #fff;
+    --color-spelllocal: #fff;
+    --color-nontext: #444;
+    --color-specialkey: #aaa;
+
     --color-cursorline: #111;
     --color-cursorcolumn: #111;
     --color-cursor: #fff;
@@ -42,14 +47,13 @@
     --color-diffchange: #222;
     --color-difftext: #000;
     --color-diffadd: #020;
-    --color-spellbad: #fff;
-    --color-spellcap: #fff;
-    --color-spellrare: #fff;
-    --color-spelllocal: #fff;
-    --color-nontext: #444;
-    --color-specialkey: #aaa;
+
+    --color-linenr-bg: #000;
+    --color-linenr-fg: #fff;
     --color-statusline-fg: #000;
     --color-statusline-bg: #fff;
+    --color-statuslinenc-fg: #000;
+    --color-statuslinenc-bg: #fff;
     --color-tablinefill: #222;
     --color-tabline-fg: #fff;
     --color-tabline-bg: #000;
@@ -61,6 +65,14 @@
     --color-foldcolumn-bg: #000;
     --color-signcolumn-fg: #fff;
     --color-signcolumn-bg: #000;
+    --color-vertsplit-fg: #000;
+    --color-vertsplit-bg: #fff;
+    --color-pmenu-fg: #000;
+    --color-pmenu-bg: #fff;
+    --color-pmenusel-fg: #000;
+    --color-pmenusel-bg: #ddd;
+    --color-pmenusbar: #ddd;
+    --color-pmenuthumb: #fff;
 }
 
 .tab {
@@ -70,7 +82,9 @@
 
 #nav-rust:checked ~ #tabs #label-rust,
 #nav-js:checked ~ #tabs #label-js,
-#nav-editor:checked ~ #tabs #label-editor {
+#nav-editor:checked ~ #tabs #label-editor,
+#nav-ui:checked ~ #tabs #label-ui
+{
     background-color: var(--color-bg);
     color: var(--color-fg);
     font-style: italic;
@@ -241,6 +255,16 @@
     color: var(--color-statusline-bg);
 }
 
+#statuslinenc-fg-block {
+    background-color: var(--color-statuslinenc-fg);
+    color: var(--color-statuslinenc-fg);
+}
+
+#statuslinenc-bg-block {
+    background-color: var(--color-statuslinenc-bg);
+    color: var(--color-statuslinenc-bg);
+}
+
 #tablinefill-block {
     background-color: var(--color-tablinefill);
     color: var(--color-tablinefill);
@@ -294,6 +318,46 @@
 #signcolumn-fg-block {
     background-color: var(--color-signcolumn-fg);
     color: var(--color-signcolumn-fg);
+}
+
+#vertsplit-bg-block {
+    background-color: var(--color-vertsplit-bg);
+    color: var(--color-vertsplit-bg);
+}
+
+#vertsplit-fg-block {
+    background-color: var(--color-vertsplit-fg);
+    color: var(--color-vertsplit-fg);
+}
+
+#pmenu-bg-block {
+    background-color: var(--color-pmenu-bg);
+    color: var(--color-pmenu-bg);
+}
+
+#pmenu-fg-block {
+    background-color: var(--color-pmenu-fg);
+    color: var(--color-pmenu-fg);
+}
+
+#pmenusel-bg-block {
+    background-color: var(--color-pmenusel-bg);
+    color: var(--color-pmenusel-bg);
+}
+
+#pmenusel-fg-block {
+    background-color: var(--color-pmenusel-fg);
+    color: var(--color-pmenusel-fg);
+}
+
+#pmenusbar-block {
+    background-color: var(--color-pmenusbar);
+    color: var(--color-pmenusbar);
+}
+
+#pmenuthumb-block {
+    background-color: var(--color-pmenuthumb);
+    color: var(--color-pmenuthumb);
 }
 
 #blocks {
@@ -420,6 +484,11 @@
     display: inline-block;
 }
 
+#blocks pre .statuslinenc {
+    background-color: var(--color-statuslinenc-bg);
+    color: var(--color-statuslinenc-fg);
+}
+
 #blocks pre .right {
     float: right;
 }
@@ -458,6 +527,29 @@
 #blocks pre .signcolumn {
     background-color: var(--color-signcolumn-bg);
     color: var(--color-signcolumn-fg);
+}
+
+#blocks pre .vertsplit {
+    background-color: var(--color-vertsplit-bg);
+    color: var(--color-vertsplit-fg);
+}
+
+#blocks pre .pmenu {
+    background-color: var(--color-pmenu-bg);
+    color: var(--color-pmenu-fg);
+}
+
+#blocks pre .pmenusel {
+    background-color: var(--color-pmenusel-bg);
+    color: var(--color-pmenusel-fg);
+}
+
+#blocks pre .pmenusbar {
+    background-color: var(--color-pmenusbar);
+}
+
+#blocks pre .pmenuthumb {
+    background-color: var(--color-pmenuthumb);
 }
 
 #blocks pre .diffdelete {

@@ -317,7 +317,7 @@ var loContrastColors = ['nontext', 'specialkey'];
 
 var diffForceSettings = {
     'diffdelete': 'reddish',
-    'diffadd': false,
+    'diffadd': 'greenish',
     'diffchange': false,
 };
 

@@ -132,7 +132,22 @@ specific UI elements  <span class="vertsplit">|</span>  <span class="pmenu">foo 
                       <span class="vertsplit">|</span>  <span class="pmenu">fun       </span><span class="pmenuthumb"> </span>
                       <span class="vertsplit">|</span>  <span class="pmenu">function  </span><span class="pmenusbar"> </span>
                       <span class="vertsplit">|</span>
+                      <span class="vertsplit">|</span>
+                      <span class="vertsplit">|</span>
+                      <span class="vertsplit">|</span>
+                      <span class="vertsplit">|</span>
+                      <span class="vertsplit">|</span>
+                      <span class="vertsplit">|</span>
+                      <span class="vertsplit">|</span>
 <span class="statuslinenc">inactive status        </span><span class="statusline">active status</span>
+<span class="warningmsg">W10: Warning: Changing a readonly file</span>
+<span class="errormsg">E37: No write since last change (add ! to override)</span>
+<span class="modemsg">-- INSERT --</span>
+<span class="moremsg">-- More --</span>
+
+one-file              another-file          a-third-file
+<span class="directory">one-directory/</span>        <span class="directory">another-directory/</span>
+<span class="statusline">one-file  another-file  <span class="wildmenu">a-third-file</span></span>
 </pre>
                     </div>
                 </div>
@@ -189,6 +204,18 @@ specific UI elements  <span class="vertsplit">|</span>  <span class="pmenu">foo 
                             <div>
                                 <span class="block" id="error-block"> </span>
                                 Syntax errors: <span id="error-col">#200</span>
+                            </div>
+                            <div>
+                                <span class="block" id="modemsg-block"> </span>
+                                'showmode' message: <span id="modemsg-col">#FFF</span>
+                            </div>
+                            <div>
+                                <span class="block" id="moremsg-block"> </span>
+                                "More" prompt: <span id="moremsg-col">#FFF</span>
+                            </div>
+                            <div>
+                                <span class="block" id="directory-block"> </span>
+                                Directories in file listings: <span id="directory-col">#FFF</span>
                             </div>
                             <div>
                                 <span class="block" id="spellbad-block"> </span>
@@ -257,6 +284,18 @@ specific UI elements  <span class="vertsplit">|</span>  <span class="pmenu">foo 
                             <div>
                                 <span class="block" id="matchparen-block"> </span>
                                 Matching parentheses: <span id="matchparen-col">#222</span>
+                            </div>
+                            <div>
+                                <span class="block" id="warningmsg-block"> </span>
+                                Warning messages: <span id="warningmsg-col">#200</span>
+                            </div>
+                            <div>
+                                <span class="block" id="errormsg-block"> </span>
+                                Error messages: <span id="errormsg-col">#200</span>
+                            </div>
+                            <div>
+                                <span class="block" id="wildmenu-block"> </span>
+                                Tab-completion menu selection: <span id="wildmenu-col">#DDD</span>
                             </div>
                         </div>
                     </div>
@@ -477,7 +516,7 @@ its 24-bit hex code.
                 <p>
 When deciding whether two colors are "distinct", <b>mkcolor</b> uses both the contrast ratio as well
 as a Euclidean distance in the CIELAB color space. If the contrast ratio between two text colors is
-greater than 1.1 and the CIELAB distance is greater than 20, then two colors are considered
+greater than 1.06 and the CIELAB distance is greater than 20, then two colors are considered
 "distinct". For two highlight colors, or when comparing a highlight color against the main
 background, the contrast ratio needs to be greater than 1.008, and the CIELAB distance greater than
 10. All highlight colors still need to maintain the requested minimum contrast ratio with all text

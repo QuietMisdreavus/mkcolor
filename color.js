@@ -49,7 +49,7 @@ function isDistinct(col1, col2) {
     let cr = contrastRatio(col1, col2);
     let dist = labDistance(col1, col2);
 
-    return (cr > 1.1 && dist > 20);
+    return (cr > 1.06 && dist > 20);
 }
 
 function isHilightDistinct(col1, col2) {
@@ -91,7 +91,7 @@ function tweakColor(col) {
 
 // the color classes that can be generated only by comparing their contrast ratio against the
 // background color
-var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special', 'title'];
+var colorNames = ['identifier', 'constant', 'type', 'statement', 'preproc', 'special', 'title', 'modemsg', 'moremsg', 'directory'];
 
 // generates a color and adds it to the given colors object using the given name
 function addColor(colors, name, useAnsi, limit, fgDistinct) {
@@ -187,7 +187,7 @@ function addSpellColor(colors, name, useAnsi, limit) {
     }
 }
 
-var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen', 'diffdelete', 'diffchange', 'difftext', 'diffadd', 'error', 'todo'];
+var bgColorNames = ['cursorline', 'visual', 'incsearch', 'search', 'matchparen', 'diffdelete', 'diffchange', 'difftext', 'diffadd', 'error', 'todo', 'warningmsg', 'errormsg', 'wildmenu'];
 
 // generates a new color and compares it against the colors in `colorNames` to ensure it meets the
 // given contrast ratio threshold

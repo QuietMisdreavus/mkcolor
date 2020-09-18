@@ -27,18 +27,21 @@
     --color-preproc: #fff;
     --color-special: #fff;
     --color-title: #fff;
-    --color-todo: #220;
-    --color-error: #200;
     --color-spellbad: #fff;
     --color-spellcap: #fff;
     --color-spellrare: #fff;
     --color-spelllocal: #fff;
     --color-nontext: #444;
     --color-specialkey: #aaa;
+    --color-modemsg: #fff;
+    --color-moremsg: #fff;
+    --color-directory: #fff;
 
+    --color-todo: #220;
+    --color-error: #200;
+    --color-cursor: #fff;
     --color-cursorline: #111;
     --color-cursorcolumn: #111;
-    --color-cursor: #fff;
     --color-visual: #222;
     --color-incsearch: #222;
     --color-search: #222;
@@ -47,6 +50,9 @@
     --color-diffchange: #222;
     --color-difftext: #000;
     --color-diffadd: #020;
+    --color-warningmsg: #200;
+    --color-errormsg: #200;
+    --color-wildmenu: #ddd;
 
     --color-linenr-bg: #000;
     --color-linenr-fg: #fff;
@@ -215,6 +221,21 @@
     color: var(--color-diffadd);
 }
 
+#warningmsg-block {
+    background-color: var(--color-warningmsg);
+    color: var(--color-warningmsg);
+}
+
+#errormsg-block {
+    background-color: var(--color-errormsg);
+    color: var(--color-errormsg);
+}
+
+#wildmenu-block {
+    background-color: var(--color-wildmenu);
+    color: var(--color-wildmenu);
+}
+
 #spellbad-block {
     background-color: var(--color-spellbad);
     color: var(--color-spellbad);
@@ -243,6 +264,21 @@
 #specialkey-block {
     background-color: var(--color-specialkey);
     color: var(--color-specialkey);
+}
+
+#modemsg-block {
+    background-color: var(--color-modemsg);
+    color: var(--color-modemsg);
+}
+
+#moremsg-block {
+    background-color: var(--color-moremsg);
+    color: var(--color-moremsg);
+}
+
+#directory-block {
+    background-color: var(--color-directory);
+    color: var(--color-directory);
 }
 
 #statusline-fg-block {
@@ -574,10 +610,34 @@
     background-color: var(--color-difftext);
 }
 
+#blocks pre .warningmsg {
+    background-color: var(--color-warningmsg);
+}
+
+#blocks pre .errormsg {
+    background-color: var(--color-errormsg);
+}
+
+#blocks pre .wildmenu {
+    background-color: var(--color-wildmenu);
+}
+
 #blocks pre .nontext {
     color: var(--color-nontext);
 }
 
 #blocks pre .specialkey {
     color: var(--color-specialkey);
+}
+
+#blocks pre .modemsg {
+    color: var(--color-modemsg);
+}
+
+#blocks pre .moremsg {
+    color: var(--color-moremsg);
+}
+
+#blocks pre .directory {
+    color: var(--color-directory);
 }

@@ -315,6 +315,12 @@ var uiForceSettings = {
 
 var loContrastColors = ['nontext', 'specialkey'];
 
+var diffForceSettings = {
+    'diffdelete': 'reddish',
+    'diffadd': false,
+    'diffchange': false,
+};
+
 // reads the settings from the page, then generates a new set of colors and returns the collection
 // object
 function randomColorSet() {
@@ -421,6 +427,27 @@ function randomColorSet() {
                 colors[name] = randomColor(useAnsi);
             } while (contrastRatio(colors[name], colors.bg) > 4
                 || !isDistinct(colors[name], colors.bg));
+        }
+
+        for (let name in diffForceSettings) {
+            if (diffForceSettings[name]
+                && document.getElementById(`force-${name}`).checked === true
+                && colors[name].ish !== diffForceSettings[name]
+            ) {
+                // get the current color out of the way so that we can reset other colors
+                delete colors[name];
+
+                // if any other diff color has the same color family, change those first
+                for (let diff in diffForceSettings) {
+                    while (diff !== name && colors[diff].ish === diffForceSettings[name]) {
+                        addBgColor(colors, diff, useAnsi, limit, bgDistinct, bgDistinctAll);
+                    }
+                }
+
+                do {
+                    addBgColor(colors, name, useAnsi, limit, bgDistinct, bgDistinctAll);
+                } while (colors[name].ish !== diffForceSettings[name]);
+            }
         }
 
         return colors;

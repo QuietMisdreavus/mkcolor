@@ -555,6 +555,14 @@ colors, so the "distinction" criteria are loosened to prevent runaway situations
 contrast ratio forbidding any color scheme.
                 </p>
                 <p>
+The experimental "tweak the main background" feature uses a random walk in the CIELAB color space to
+take the main background color and create a new one that's similar to it. It won't work while "Use
+ANSI terminal colors" is enabled because doing so creates colors that are outside the ANSI 256-color
+space. Selecting either option will disable the other one until it has been deselected. (If you know
+how to do color-space conversions to the closest ANSI 8-bit color, get in touch! The source code is
+available at the link above.)
+                </p>
+                <p>
 This project owes its inspiration and existence to a number of resources, including (but not limited
 to):
 <ul>

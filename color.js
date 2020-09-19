@@ -335,7 +335,7 @@ function randomColorSet() {
         let colors = {};
 
         function newBg(limit, useAnsi) {
-            let midpointRadius = (Math.max(0, limit - 1) / 2);
+            let midpointRadius = (Math.max(0, limit - 1) / 2) + 1;
             let col;
             do {
                 col = randomColor(useAnsi);

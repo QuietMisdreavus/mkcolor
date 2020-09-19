@@ -501,3 +501,26 @@ document.getElementById('rando').addEventListener('click', function(ev) {
 
     document.getElementById('download').disabled = false;
 });
+
+document.getElementById('use-ansi').addEventListener('change', function(ev) {
+    let tweakUi = document.getElementById('ui-tweak');
+    tweakUi.disabled = ev.target.checked;
+    if (ev.target.checked && tweakUi.checked) {
+        document.getElementById('ui-lo').checked = true;
+    }
+});
+
+function toggleAnsi(ev) {
+    let useAnsi = document.getElementById('use-ansi');
+    let tweakUi = document.getElementById('ui-tweak');
+
+    useAnsi.disabled = tweakUi.checked;
+    if (tweakUi.checked && useAnsi.checked) {
+        useAnsi.checked = false;
+    }
+}
+
+document.getElementById('ui-hi').addEventListener('change', toggleAnsi);
+document.getElementById('ui-lo').addEventListener('change', toggleAnsi);
+document.getElementById('ui-any').addEventListener('change', toggleAnsi);
+document.getElementById('ui-tweak').addEventListener('change', toggleAnsi);

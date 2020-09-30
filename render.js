@@ -88,15 +88,17 @@ function renderHighlight(name, fg, bg, style) {
         }
     }
 
-    if (style) {
-        line += ` gui=${style}`;
-        let hasIdx = (fg && fg.idx) || (bg && bg.idx);
-        if (hasIdx) {
-            if (style === 'undercurl') {
-                line += ' cterm=underline';
-            } else {
-                line += ` cterm=${style}`;
-            }
+    if (style === undefined) {
+        style = 'NONE';
+    }
+
+    line += ` gui=${style}`;
+    let hasIdx = (fg && fg.idx) || (bg && bg.idx);
+    if (hasIdx) {
+        if (style === 'undercurl') {
+            line += ' cterm=underline';
+        } else {
+            line += ` cterm=${style}`;
         }
     }
 

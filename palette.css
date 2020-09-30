@@ -56,6 +56,8 @@
 
     --color-linenr-bg: #000;
     --color-linenr-fg: #fff;
+    --color-cursorlinenr-bg: #000;
+    --color-cursorlinenr-fg: #fff;
     --color-statusline-fg: #000;
     --color-statusline-bg: #fff;
     --color-statuslinenc-fg: #000;
@@ -164,6 +166,16 @@
 #linenr-fg-block {
     background-color: var(--color-linenr-fg);
     color: var(--color-linenr-fg);
+}
+
+#cursorlinenr-bg-block {
+    background-color: var(--color-cursorlinenr-bg);
+    color: var(--color-cursorlinenr-bg);
+}
+
+#cursorlinenr-fg-block {
+    background-color: var(--color-cursorlinenr-fg);
+    color: var(--color-cursorlinenr-fg);
 }
 
 #cursor-block {
@@ -451,6 +463,12 @@
 #blocks pre .linenr {
     background-color: var(--color-linenr-bg);
     color: var(--color-linenr-fg);
+}
+
+#blocks pre .cursorlinenr {
+    background-color: var(--color-cursorlinenr-bg);
+    color: var(--color-cursorlinenr-fg);
+    font-weight: bold;
 }
 
 #blocks pre .cursorline {

@@ -41,6 +41,7 @@ function vimGroupName(name) {
         'errormsg': 'ErrorMsg',
         'wildmenu': 'WildMenu',
         'linenr': 'LineNr',
+        'cursorlinenr': 'CursorLineNr',
         'statusline': 'StatusLine',
         'tabline': 'TabLine',
         'tablinesel': 'TabLineSel',
@@ -144,7 +145,7 @@ document.getElementById('download').addEventListener('click', function(ev) {
     output += renderHighlight('Comment', colorScheme.comment);
     output += renderHighlight('Cursor', colorScheme.cursor, none, 'reverse');
 
-    let boldColors = ['title', 'error', 'statusline', 'tablinesel', 'folded'];
+    let boldColors = ['title', 'error', 'statusline', 'tablinesel', 'folded', 'cursorlinenr'];
 
     let textColors = colorNames.concat(loContrastColors);
 
